@@ -153,8 +153,8 @@ export default function CompareAnalyze() {
   }
 
   const ImageUploadBox = ({ imageNum, image, preview, onChange }) => (
-    <div className="nature-border rounded-xl p-6 bg-white/80">
-      <h3 className="text-lg font-display font-display font-bold mb-4">Image {imageNum}</h3>
+    <div className="rounded-xl p-6 card-dark shadow-lg border-2 border-white/10">
+      <h3 className="text-lg font-display font-bold mb-4 text-white">Image {imageNum}</h3>
       
       {preview ? (
         <div className="relative">
@@ -172,7 +172,7 @@ export default function CompareAnalyze() {
             }}
             className="absolute top-2 right-2 p-2 bg-red-500 rounded-full hover:bg-red-600 transition"
           >
-            <X size={20} />
+            <X size={20} className="text-white" />
           </button>
         </div>
       ) : (
@@ -184,17 +184,17 @@ export default function CompareAnalyze() {
             disabled={!carCategory}
             className="hidden"
           />
-          <div className="border-2 border-dashed rounded-xl p-8 text-center transition border-gray-300 hover:border-primary">
+          <div className="border-2 border-dashed rounded-xl p-8 text-center transition border-slate-600 hover:border-primary">
             <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 ${
-              carCategory ? 'bg-primary/20' : 'bg-gray-200/20'
+              carCategory ? 'bg-primary/20' : 'bg-gray-700/20'
             }`}>
-              <Upload className={carCategory ? 'text-primary' : 'text-gray-600'} size={32} />
+              <Upload className={carCategory ? 'text-primary' : 'text-gray-500'} size={32} />
             </div>
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-300 mb-2">
               {carCategory ? 'Click to upload' : 'Select category first'}
             </p>
-            <div className={`inline-block px-4 py-2 border-2 rounded-lg transition ${
-              carCategory ? 'border-gray-300 hover:border-primary' : 'border-primary/20 opacity-50'
+            <div className={`inline-block px-4 py-2 border-2 rounded-lg transition text-white ${
+              carCategory ? 'border-slate-600 hover:border-primary' : 'border-slate-700 opacity-50'
             }`}>
               Browse
             </div>
@@ -205,19 +205,19 @@ export default function CompareAnalyze() {
   )
 
   return (
-    <div className="min-h-screen bg-light-bg">
+    <div className="min-h-screen">
       {/* Header */}
-      <nav className="border-b border-primary/20 px-8 py-4">
+      <nav className="border-b border-primary/20 px-8 py-4 glass-effect shadow-lg">
         <div className="flex items-center gap-4">
           <button onClick={() => {
             sessionStorage.removeItem('compareAnalyzeState')
             navigate('/dashboard')
-          }} className="p-2 hover:text-primary transition">
+          }} className="p-2 hover:text-cyan-300 transition text-white">
             <ArrowLeft size={24} />
           </button>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-bold">AI</div>
-            <span className="text-2xl font-display font-bold">DAMAGESYS</span>
+            <div className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center font-bold text-white shadow-lg">AI</div>
+            <span className="text-2xl font-display font-bold text-white">CAR SCAN</span>
           </div>
         </div>
       </nav>
@@ -228,8 +228,8 @@ export default function CompareAnalyze() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-6xl mx-auto"
         >
-          <h1 className="text-4xl font-display font-extrabold mb-2">COMPARE DAMAGE</h1>
-          <p className="text-gray-700 mb-8">Upload two images to compare damage severity and cost estimates</p>
+          <h1 className="text-4xl font-display font-extrabold mb-2 text-white">COMPARE DAMAGE</h1>
+          <p className="text-cyan-100 mb-8">Upload two images to compare damage severity and cost estimates</p>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 rounded-lg p-4 mb-6 text-red-400">
@@ -238,13 +238,13 @@ export default function CompareAnalyze() {
           )}
 
           {/* Car Category Selection */}
-          <div className="nature-border rounded-xl p-6 bg-white/80 mb-6">
-            <label className="block text-sm mb-2">Car Category</label>
+          <div className="rounded-xl p-6 card-dark shadow-lg border-2 border-white/10 mb-6">
+            <label className="block text-sm mb-2 font-bold text-white">Car Category</label>
             <select
               value={carCategory}
               onChange={(e) => setCarCategory(e.target.value)}
               disabled={loading}
-              className="w-full max-w-md px-4 py-3 bg-light-bg border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition"
+              className="w-full max-w-md px-4 py-3 text-white bg-slate-700 border-2 border-slate-600 rounded-lg focus:border-primary outline-none transition shadow-sm"
             >
               <option value="">Select Category</option>
               <option value="Economy">Economy (Budget-friendly vehicles)</option>
@@ -276,7 +276,7 @@ export default function CompareAnalyze() {
               <button
                 onClick={handleCompare}
                 disabled={loading || !image1 || !image2 || !carCategory}
-                className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed text-white"
               >
                 {loading ? 'Analyzing...' : 'Compare Images →'}
               </button>
@@ -301,14 +301,14 @@ export default function CompareAnalyze() {
                   <div className="p-6 space-y-3">
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Damage Type</span>
+                        <span className="text-white font-bold">Damage Type</span>
                         <InfoTooltip text="What kind of damage: scratch, dent, tire flat, etc." />
                       </div>
-                      <span className="font-bold text-right">{results.image1.damageType}</span>
+                      <span className="font-bold text-white text-right">{results.image1.damageType}</span>
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Severity</span>
+                        <span className="text-white font-bold">Severity</span>
                         <InfoTooltip text="Minor (small fix), Moderate (medium), Severe (major repair)" />
                       </div>
                       <div className="flex items-center gap-2">
@@ -323,32 +323,32 @@ export default function CompareAnalyze() {
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Confidence</span>
+                        <span className="text-white font-bold">Confidence</span>
                         <InfoTooltip text="AI accuracy (0-100%). Above 70% is good." />
                       </div>
-                      <span className="font-bold text-gray-900">{results.image1.confidence}%</span>
+                      <span className="font-bold text-white">{results.image1.confidence}%</span>
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Affected Area</span>
+                        <span className="text-white font-bold">Affected Area</span>
                         <InfoTooltip text="Size of damaged area in pixels." />
                       </div>
-                      <span className="font-bold text-gray-900">{results.image1.affectedArea} px²</span>
+                      <span className="font-bold text-white">{results.image1.affectedArea} px²</span>
                     </div>
-                    <div className="pt-3 border-t border-gray-300">
+                    <div className="pt-3 border-t-2 border-slate-600">
                       <div className="flex justify-between items-center mb-2">
                         <div className="flex items-center">
-                          <span className="text-gray-700 text-sm">Estimated Cost</span>
+                          <span className="text-white font-bold">Estimated Cost</span>
                           <InfoTooltip text="Approximate repair cost. Actual may vary." />
                         </div>
-                        <span className="font-bold text-primary text-2xl">₹{results.image1.estimatedCost}</span>
+                        <span className="font-bold text-green-400 text-2xl">₹{results.image1.estimatedCost}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mb-3">💡 Get quotes from mechanics</p>
+                      <p className="text-xs text-gray-300 mb-3 font-medium">💡 Get quotes from mechanics</p>
                       <button
                         onClick={() => navigate(`/report/${results.image1.reportId}`, { 
                           state: { from: '/compare-analyze' } 
                         })}
-                        className="w-full py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition"
+                        className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/80 transition"
                       >
                         View Full Report
                       </button>
@@ -372,14 +372,14 @@ export default function CompareAnalyze() {
                   <div className="p-6 space-y-3">
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Damage Type</span>
+                        <span className="text-white font-bold">Damage Type</span>
                         <InfoTooltip text="What kind of damage: scratch, dent, tire flat, etc." />
                       </div>
-                      <span className="font-bold text-right">{results.image2.damageType}</span>
+                      <span className="font-bold text-white text-right">{results.image2.damageType}</span>
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Severity</span>
+                        <span className="text-white font-bold">Severity</span>
                         <InfoTooltip text="Minor (small fix), Moderate (medium), Severe (major repair)" />
                       </div>
                       <div className="flex items-center gap-2">
@@ -394,28 +394,32 @@ export default function CompareAnalyze() {
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Confidence</span>
+                        <span className="text-white font-bold">Confidence</span>
                         <InfoTooltip text="AI accuracy (0-100%). Above 70% is good." />
                       </div>
-                      <span className="font-bold text-gray-900">{results.image2.confidence}%</span>
+                      <span className="font-bold text-white">{results.image2.confidence}%</span>
                     </div>
                     <div className="flex justify-between items-start">
                       <div className="flex items-center">
-                        <span className="text-gray-700 text-sm">Affected Area</span>
+                        <span className="text-white font-bold">Affected Area</span>
                         <InfoTooltip text="Size of damaged area in pixels." />
                       </div>
-                      <span className="font-bold text-gray-900">{results.image2.affectedArea} px²</span>
+                      <span className="font-bold text-white">{results.image2.affectedArea} px²</span>
                     </div>
-                    <div className="pt-3 border-t border-gray-300">
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-gray-700 text-sm">Estimated Cost:</span>
-                        <span className="font-bold text-primary text-2xl">₹{results.image2.estimatedCost}</span>
+                    <div className="pt-3 border-t-2 border-slate-600">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="flex items-center">
+                          <span className="text-white font-bold">Estimated Cost</span>
+                          <InfoTooltip text="Approximate repair cost. Actual may vary." />
+                        </div>
+                        <span className="font-bold text-green-400 text-2xl">₹{results.image2.estimatedCost}</span>
                       </div>
+                      <p className="text-xs text-gray-300 mb-3 font-medium">💡 Get quotes from mechanics</p>
                       <button
                         onClick={() => navigate(`/report/${results.image2.reportId}`, { 
                           state: { from: '/compare-analyze' } 
                         })}
-                        className="w-full py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition"
+                        className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/80 transition"
                       >
                         View Full Report
                       </button>
@@ -429,14 +433,14 @@ export default function CompareAnalyze() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="nature-border rounded-xl p-8 bg-gradient-to-br from-primary/10 to-transparent"
+                className="rounded-xl p-8 card-dark shadow-lg border-2 border-white/10"
               >
-                <h3 className="text-3xl font-display font-display font-bold mb-8 text-center">Comparison Summary</h3>
+                <h3 className="text-3xl font-display font-bold mb-8 text-center text-white">Comparison Summary</h3>
                 
                 <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="text-center p-6 bg-white/90 rounded-xl border-2 border-primary/30">
+                  <div className="text-center p-6 card-dark rounded-xl border-2 border-primary/30">
                     <div className="flex items-center justify-center mb-3">
-                      <p className="text-gray-700 text-sm uppercase tracking-wide">Cost Difference</p>
+                      <p className="text-white text-sm uppercase tracking-wide font-bold">Cost Difference</p>
                       <InfoTooltip text="The difference in repair costs between the two images. Shows which one is more expensive to fix." />
                     </div>
                     <p className="text-4xl font-display font-extrabold text-primary mb-2">
@@ -450,7 +454,7 @@ export default function CompareAnalyze() {
                         return Math.abs(cost1 - cost2).toLocaleString('en-IN')
                       })()}
                     </p>
-                    <p className="text-sm text-gray-700 font-medium">
+                    <p className="text-sm text-gray-300 font-medium">
                       {(() => {
                         const cost1 = typeof results.image1.estimatedCost === 'string'
                           ? parseInt(results.image1.estimatedCost.replace(/[₹,\s]/g, '')) || 0
@@ -466,9 +470,9 @@ export default function CompareAnalyze() {
                     </p>
                   </div>
 
-                  <div className="text-center p-6 bg-white/90 rounded-xl border-2 border-primary/30">
+                  <div className="text-center p-6 card-dark rounded-xl border-2 border-primary/30">
                     <div className="flex items-center justify-center mb-3">
-                      <p className="text-gray-700 text-sm uppercase tracking-wide">Severity Comparison</p>
+                      <p className="text-white text-sm uppercase tracking-wide font-bold">Severity Comparison</p>
                       <InfoTooltip text="Compares how serious the damage is in both images. Minor = small fix, Moderate = medium damage, Severe = major repair needed." />
                     </div>
                     <div className="flex items-center justify-center gap-3 mb-2">
@@ -481,7 +485,7 @@ export default function CompareAnalyze() {
                            results.image1.severity === 'Moderate' ? '🟡' : '🟢'}
                         </span>
                       </div>
-                      <ArrowRight className="text-gray-500" size={24} />
+                      <ArrowRight className="text-gray-400" size={24} />
                       <div className="flex items-center gap-1">
                         <span className={`text-2xl font-bold ${getSeverityColor(results.image2.severity)}`}>
                           {results.image2.severity}
@@ -492,22 +496,22 @@ export default function CompareAnalyze() {
                         </span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-700 font-medium">
+                    <p className="text-sm text-gray-300 font-medium">
                       {results.image1.severity === results.image2.severity 
                         ? '🟡 Same severity level'
                         : '⚠️ Different severity'}
                     </p>
                   </div>
 
-                  <div className="text-center p-6 bg-white/90 rounded-xl border-2 border-primary/30">
+                  <div className="text-center p-6 card-dark rounded-xl border-2 border-primary/30">
                     <div className="flex items-center justify-center mb-3">
-                      <p className="text-gray-700 text-sm uppercase tracking-wide">Area Difference</p>
+                      <p className="text-white text-sm uppercase tracking-wide font-bold">Area Difference</p>
                       <InfoTooltip text="Difference in the size of damaged areas. Larger number means one vehicle has much more damage area than the other." />
                     </div>
                     <p className="text-4xl font-display font-extrabold text-primary mb-2">
                       {Math.abs(results.image1.affectedArea - results.image2.affectedArea).toLocaleString()} px²
                     </p>
-                    <p className="text-sm text-gray-700 font-medium">
+                    <p className="text-sm text-gray-300 font-medium">
                       {results.image1.affectedArea > results.image2.affectedArea 
                         ? '📏 Image 1 larger area' 
                         : results.image2.affectedArea > results.image1.affectedArea
@@ -527,13 +531,13 @@ export default function CompareAnalyze() {
                       setPreview2(null)
                       sessionStorage.removeItem('compareAnalyzeState')
                     }}
-                    className="flex-1 py-4 bg-primary rounded-lg font-semibold text-lg hover:bg-primary/80 transition"
+                    className="flex-1 py-4 bg-primary text-white rounded-lg font-semibold text-lg hover:bg-primary/80 transition"
                   >
                     New Comparison
                   </button>
                   <button
                     onClick={() => navigate('/history')}
-                    className="px-8 py-4 border-2 border-gray-300 rounded-lg font-semibold text-lg hover:border-primary transition"
+                    className="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold text-lg hover:border-cyan-300 hover:text-cyan-300 transition"
                   >
                     View History
                   </button>

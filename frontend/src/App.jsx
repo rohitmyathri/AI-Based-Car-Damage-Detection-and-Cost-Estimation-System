@@ -12,7 +12,16 @@ import History from './pages/History'
 import ResetPassword from './pages/ResetPassword'
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-primary text-2xl">Loading...</div>
+      </div>
+    )
+  }
+  
   return user ? children : <Navigate to="/login" />
 }
 

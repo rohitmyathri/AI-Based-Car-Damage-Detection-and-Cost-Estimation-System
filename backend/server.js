@@ -12,6 +12,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://172.16.25.103:5173', // Allow mobile access
+  'https://hopp.pw',           // Hopscotch web
+  'https://hoppscotch.io',     // Hoppscotch
   process.env.FRONTEND_URL
 ].filter(Boolean);
 

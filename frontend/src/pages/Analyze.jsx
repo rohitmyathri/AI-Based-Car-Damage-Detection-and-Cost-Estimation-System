@@ -94,16 +94,16 @@ export default function Analyze() {
   }
 
   return (
-    <div className="min-h-screen bg-light-bg w-full overflow-x-hidden">
+    <div className="min-h-screen w-full overflow-x-hidden">
       {/* Header */}
-      <nav className="border-b border-primary/20 px-4 py-3 bg-white/90">
+      <nav className="border-b border-primary/20 px-4 py-3 glass-effect shadow-lg">
         <div className="flex items-center gap-3 max-w-7xl mx-auto">
-          <button onClick={() => navigate('/dashboard')} className="p-2 hover:text-primary transition">
+          <button onClick={() => navigate('/dashboard')} className="p-2 hover:text-cyan-300 transition text-white">
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center font-bold text-sm text-white">AI</div>
-            <span className="text-lg font-display font-bold">DAMAGESYS</span>
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center font-bold text-sm text-white shadow-md">AI</div>
+            <span className="text-lg font-display font-bold text-white">CAR SCAN</span>
           </div>
         </div>
       </nav>
@@ -113,8 +113,8 @@ export default function Analyze() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-2xl font-display font-extrabold mb-2">ANALYZE DAMAGE</h1>
-          <p className="text-sm text-gray-700 mb-6">Upload an image of your vehicle to detect damage</p>
+          <h1 className="text-2xl font-display font-extrabold mb-2 text-white">ANALYZE DAMAGE</h1>
+          <p className="text-sm text-cyan-100 mb-6">Upload an image of your vehicle to detect damage</p>
 
           {error && (
             <div className="bg-red-500/20 border border-red-500 rounded-lg p-3 mb-4 text-red-400 text-sm">
@@ -124,16 +124,16 @@ export default function Analyze() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Vehicle Details */}
-            <div className="nature-border rounded-xl p-4 bg-white">
-              <h2 className="text-lg font-display font-bold mb-4">Vehicle Details</h2>
-              <p className="text-xs text-gray-700 mb-4">Select your car category</p>
+            <div className="rounded-xl p-4 card-dark shadow-lg border-2 border-white/10">
+              <h2 className="text-lg font-display font-bold mb-4 text-white">Vehicle Details</h2>
+              <p className="text-xs text-gray-300 mb-4 font-semibold">Select your car category</p>
 
               <div>
-                <label className="block text-sm mb-2 font-semibold">Car Category</label>
+                <label className="block text-sm mb-2 font-semibold text-white">Car Category</label>
                 <select
                   value={formData.carCategory}
                   onChange={(e) => setFormData({ ...formData, carCategory: e.target.value })}
-                  className="w-full px-3 py-3 text-base bg-light-bg border-2 border-gray-300 rounded-lg focus:border-primary outline-none"
+                  className="w-full px-3 py-3 text-base text-white bg-slate-700 border-2 border-slate-600 rounded-lg focus:border-primary outline-none shadow-sm"
                 >
                   <option value="">Select Category</option>
                   <option value="Economy">Economy</option>
@@ -145,25 +145,26 @@ export default function Analyze() {
             </div>
 
             {/* Image Upload */}
-            <div className="nature-border rounded-xl p-4 bg-white">
+            <div className="rounded-xl p-4 card-dark shadow-lg border-2 border-white/10">
               {!formData.carCategory && (
-                <div className="bg-yellow-500/20 border border-yellow-500 rounded-lg p-3 mb-4 text-yellow-400 text-sm">
+                <div className="bg-amber-100/20 border-2 border-amber-400 rounded-lg p-3 mb-4 text-amber-300 text-sm font-semibold">
                   ⚠️ Select a car category first
                 </div>
               )}
               
               <div className={`border-2 border-dashed rounded-xl p-6 text-center ${
-                formData.carCategory ? 'border-gray-300' : 'border-primary/20 opacity-50'
+                formData.carCategory ? 'border-slate-600' : 'border-slate-700 opacity-50'
               }`}>
-                {preview ? (
-                  <div className="relative">
-                    <img src={preview} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
+                {image ? (
+                  <div className="py-8">
+                    <h3 className="text-lg font-display font-bold text-white mb-2">Ready for Analysis</h3>
+                    <p className="text-sm text-cyan-100 mb-4">Image uploaded successfully</p>
                     <button
                       type="button"
                       onClick={() => { setImage(null); setPreview(null); }}
-                      className="absolute top-2 right-2 p-2 bg-red-500 rounded-full hover:bg-red-600"
+                      className="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 text-white font-semibold"
                     >
-                      <X size={16} className="text-white" />
+                      Remove Image
                     </button>
                   </div>
                 ) : (
@@ -178,16 +179,16 @@ export default function Analyze() {
                       />
                       <div className="flex flex-col items-center">
                         <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-3 ${
-                          formData.carCategory ? 'bg-primary/20' : 'bg-gray-200/20'
+                          formData.carCategory ? 'bg-primary/20' : 'bg-gray-700/20'
                         }`}>
-                          <Upload className={formData.carCategory ? 'text-primary' : 'text-gray-600'} size={24} />
+                          <Upload className={formData.carCategory ? 'text-primary' : 'text-gray-500'} size={24} />
                         </div>
-                        <h3 className="text-base font-display font-bold mb-2">UPLOAD IMAGE</h3>
-                        <p className="text-xs text-gray-700 mb-3">
+                        <h3 className="text-base font-display font-bold mb-2 text-white">UPLOAD IMAGE</h3>
+                        <p className="text-xs text-gray-300 mb-3">
                           {formData.carCategory ? 'Tap to browse files' : 'Select category first'}
                         </p>
-                        <div className={`px-5 py-2 text-sm border-2 rounded-lg ${
-                          formData.carCategory ? 'border-gray-300' : 'border-primary/20 opacity-50'
+                        <div className={`px-5 py-2 text-sm border-2 rounded-lg text-white ${
+                          formData.carCategory ? 'border-slate-600' : 'border-slate-700 opacity-50'
                         }`}>
                           Browse Files
                         </div>
@@ -195,9 +196,9 @@ export default function Analyze() {
                     </label>
                     
                     <div className="my-4 flex items-center">
-                      <div className="flex-1 h-px bg-gray-300"></div>
-                      <span className="px-3 text-xs text-gray-600">OR</span>
-                      <div className="flex-1 h-px bg-gray-300"></div>
+                      <div className="flex-1 h-px bg-slate-600"></div>
+                      <span className="px-3 text-xs text-gray-400">OR</span>
+                      <div className="flex-1 h-px bg-slate-600"></div>
                     </div>
                     
                     <input
@@ -215,15 +216,15 @@ export default function Analyze() {
                       disabled={!formData.carCategory}
                       className={`w-full px-5 py-3 text-base rounded-lg font-semibold flex items-center justify-center gap-2 ${
                         formData.carCategory 
-                          ? 'bg-secondary hover:bg-secondary/90 text-gray-900' 
-                          : 'bg-gray-200/20 text-gray-600 cursor-not-allowed opacity-50'
+                          ? 'bg-secondary hover:bg-secondary/90 text-white' 
+                          : 'bg-gray-700/20 text-gray-500 cursor-not-allowed opacity-50'
                       }`}
                     >
                       <Camera size={20} />
                       Take Photo
                     </button>
                     
-                    <p className="mt-3 text-xs text-gray-600 text-center">
+                    <p className="mt-3 text-xs text-gray-400 text-center">
                       Opens camera on mobile
                     </p>
                   </div>
@@ -233,7 +234,7 @@ export default function Analyze() {
               <button
                 type="submit"
                 disabled={loading || !image || !formData.carCategory}
-                className="w-full mt-4 py-3 text-base nature-button rounded-lg font-semibold disabled:opacity-50"
+                className="w-full mt-4 py-3 text-base nature-button rounded-lg font-semibold disabled:opacity-50 text-white"
               >
                 {loading ? 'Analyzing...' : 'Analyze Damage →'}
               </button>

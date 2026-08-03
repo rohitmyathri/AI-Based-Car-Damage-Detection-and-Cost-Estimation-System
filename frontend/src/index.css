@@ -16,8 +16,8 @@ html {
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #F5F9F3 0%, #E8F5E3 100%);
-  color: #1F2937;
+  background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 50%, #06b6d4 100%);
+  color: #F8FAFC;
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
@@ -31,7 +31,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Poppins', 'Inter', sans-serif;
   font-weight: 700;
-  color: #1F2937;
+  color: #F8FAFC;
 }
 
 /* Mobile-first responsive utilities */
@@ -48,44 +48,70 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 15px rgba(22, 163, 74, 0.6);
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
   }
   
   .nature-border {
-    border: 2px solid rgba(22, 163, 74, 0.4);
-    box-shadow: 0 4px 20px rgba(22, 163, 74, 0.15);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
   }
   
   .nature-button {
-    background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
-    box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     transition: all 0.3s ease;
-    color: white;
+    color: white !important;
     font-weight: 600;
   }
   
   .nature-button:hover {
-    box-shadow: 0 6px 25px rgba(22, 163, 74, 0.5);
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
     transform: translateY(-2px);
   }
 
   .accent-button {
-    background: linear-gradient(135deg, #84CC16 0%, #65A30D 100%);
-    box-shadow: 0 4px 15px rgba(132, 204, 22, 0.3);
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
     transition: all 0.3s ease;
-    color: #1F2937;
+    color: white !important;
     font-weight: 600;
   }
   
   .accent-button:hover {
-    box-shadow: 0 6px 25px rgba(132, 204, 22, 0.5);
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .success-button {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    transition: all 0.3s ease;
+    color: white !important;
+    font-weight: 600;
+  }
+  
+  .success-button:hover {
+    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .warning-button {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    transition: all 0.3s ease;
+    color: white !important;
+    font-weight: 600;
+  }
+  
+  .warning-button:hover {
+    box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
     transform: translateY(-2px);
   }
 
   .glass-effect {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(22, 163, 74, 0.2);
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.3);
   }
 
   .card-hover {
@@ -94,6 +120,40 @@ h1, h2, h3, h4, h5, h6 {
 
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(22, 163, 74, 0.25);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+  }
+
+  .gradient-card-blue {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  }
+
+  .gradient-card-purple {
+    background: linear-gradient(135deg, #5b21b6 0%, #6d28d9 100%);
+  }
+
+  .gradient-card-amber {
+    background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+  }
+
+  .gradient-card-emerald {
+    background: linear-gradient(135deg, #047857 0%, #059669 100%);
+  }
+  
+  /* Text on white backgrounds should be dark */
+  .text-on-white {
+    color: #F9FAFB !important;
+  }
+  
+  .text-on-card {
+    color: #E5E7EB !important;
+  }
+  
+  .card-dark {
+    background: rgba(30, 41, 59, 0.9);
+    border: 2px solid rgba(148, 163, 184, 0.3);
+  }
+
+  .bg-light-bg {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 50%, #06b6d4 100%);
   }
 }

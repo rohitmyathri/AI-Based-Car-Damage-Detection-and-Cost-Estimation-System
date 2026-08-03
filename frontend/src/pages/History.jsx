@@ -5,8 +5,6 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search, Filter, Calendar, Download } from 'lucide-react'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-
 export default function History() {
   const { user } = useAuth()
   const navigate = useNavigate()
@@ -57,18 +55,18 @@ export default function History() {
   return (
     <div className="min-h-screen bg-light-bg">
       {/* Header */}
-      <nav className="border-b border-primary/20 px-8 py-4">
+      <nav className="border-b border-primary/20 px-8 py-4 glass-effect">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={() => navigate('/dashboard')} className="p-2 hover:text-primary transition">
+            <button onClick={() => navigate('/dashboard')} className="p-2 hover:text-primary transition text-white">
               <ArrowLeft size={24} />
             </button>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-bold">AI</div>
-              <span className="text-2xl font-display font-bold">DAMAGESYS</span>
+              <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-bold text-white">AI</div>
+              <span className="text-2xl font-display font-bold text-white">CAR SCAN</span>
             </div>
           </div>
-          <div className="text-sm text-gray-700 font-medium">
+          <div className="text-sm text-gray-300 font-medium">
             {user?.firstName} {user?.lastName}
           </div>
         </div>
@@ -82,32 +80,32 @@ export default function History() {
         >
           {/* Page Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-display font-extrabold mb-2">ANALYSIS HISTORY</h1>
-            <p className="text-gray-700">View all your previous damage analyses</p>
+            <h1 className="text-4xl font-display font-extrabold mb-2 text-white">ANALYSIS HISTORY</h1>
+            <p className="text-gray-300">View all your previous damage analyses</p>
           </div>
 
           {/* Filters */}
-          <div className="nature-border rounded-xl p-6 bg-white/80 mb-6">
+          <div className="nature-border rounded-xl p-6 card-dark mb-6">
             <div className="grid md:grid-cols-3 gap-4">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700" size={20} />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="text"
                   placeholder="Search by damage type or report ID..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-light-bg border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 border-slate-600 rounded-lg focus:border-primary outline-none transition"
                 />
               </div>
 
               {/* Severity Filter */}
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700" size={20} />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                 <select
                   value={filterSeverity}
                   onChange={(e) => setFilterSeverity(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-light-bg border-2 border-gray-300 rounded-lg focus:border-primary outline-none transition appearance-none"
+                  className="w-full pl-10 pr-4 py-3 bg-slate-700 text-white border-2 border-slate-600 rounded-lg focus:border-primary outline-none transition appearance-none"
                 >
                   <option value="all">All Severities</option>
                   <option value="Minor">Minor</option>
@@ -118,8 +116,8 @@ export default function History() {
 
               {/* Results Count */}
               <div className="flex items-center justify-end">
-                <div className="text-gray-700">
-                  Showing <span className="text-primary font-bold">{filteredAnalyses.length}</span> of <span className="font-bold text-gray-900">{analyses.length}</span> results
+                <div className="text-gray-300">
+                  Showing <span className="text-primary font-bold">{filteredAnalyses.length}</span> of <span className="font-bold text-white">{analyses.length}</span> results
                 </div>
               </div>
             </div>
@@ -127,8 +125,8 @@ export default function History() {
 
           {/* Analysis List */}
           {filteredAnalyses.length === 0 ? (
-            <div className="nature-border rounded-xl p-12 bg-white/80 text-center">
-              <div className="text-gray-700 text-lg mb-4">No analyses found</div>
+            <div className="nature-border rounded-xl p-12 card-dark text-center">
+              <div className="text-gray-300 text-lg mb-4">No analyses found</div>
               <button
                 onClick={() => navigate('/analyze')}
                 className="px-6 py-3 nature-button rounded-lg font-semibold"
@@ -147,15 +145,15 @@ export default function History() {
                   onClick={() => navigate(`/report/${analysis.reportId}`, { 
                     state: { from: '/history' } 
                   })}
-                  className="nature-border rounded-xl p-6 bg-white/80 hover:bg-white/90 cursor-pointer transition"
+                  className="nature-border rounded-xl p-6 card-dark hover:bg-slate-700/90 cursor-pointer transition"
                 >
                   <div className="grid md:grid-cols-12 gap-6 items-center">
                     {/* Image */}
                     <div className="md:col-span-2">
-                      <div className="w-full h-24 bg-gray-200 rounded-lg overflow-hidden">
+                      <div className="w-full h-24 bg-slate-700 rounded-lg overflow-hidden">
                         {analysis.imageUrl ? (
                           <img
-                            src={`${API_URL}${analysis.imageUrl}`}
+                            src={`http://localhost:5000${analysis.imageUrl}`}
                             alt="Vehicle damage"
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -164,7 +162,7 @@ export default function History() {
                             }}
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-500 text-xs">
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
                             No Image
                           </div>
                         )}
@@ -173,9 +171,9 @@ export default function History() {
 
                     {/* Report Info */}
                     <div className="md:col-span-3">
-                      <div className="text-sm text-gray-700 mb-1">Report ID</div>
+                      <div className="text-sm text-gray-400 mb-1">Report ID</div>
                       <div className="font-bold text-primary mb-2">{analysis.reportId}</div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-gray-300">
                         <Calendar size={14} />
                         {new Date(analysis.date).toLocaleDateString('en-US', {
                           year: 'numeric',
@@ -187,8 +185,8 @@ export default function History() {
 
                     {/* Damage Details */}
                     <div className="md:col-span-3">
-                      <div className="text-sm text-gray-700 mb-1">Damage Type</div>
-                      <div className="font-bold mb-2">{analysis.damageType}</div>
+                      <div className="text-sm text-gray-400 mb-1">Damage Type</div>
+                      <div className="font-bold text-white mb-2">{analysis.damageType}</div>
                       <div className="flex flex-wrap gap-2">
                         <div className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${getSeverityColor(analysis.severity)}`}>
                           {analysis.severity || 'Unknown'}
@@ -212,14 +210,14 @@ export default function History() {
 
                     {/* Vehicle Info */}
                     <div className="md:col-span-2">
-                      <div className="text-sm text-gray-700 mb-1">Vehicle</div>
-                      <div className="font-semibold">{analysis.vehicleName || 'Unknown'}</div>
-                      <div className="text-sm text-gray-500">{analysis.vehicleCategory || 'N/A'}</div>
+                      <div className="text-sm text-gray-400 mb-1">Vehicle</div>
+                      <div className="font-semibold text-white">{analysis.vehicleName || 'Unknown'}</div>
+                      <div className="text-sm text-gray-400">{analysis.vehicleCategory || 'N/A'}</div>
                     </div>
 
                     {/* Cost */}
                     <div className="md:col-span-2 text-right">
-                      <div className="text-sm text-gray-700 mb-1">Estimated Cost</div>
+                      <div className="text-sm text-gray-400 mb-1">Estimated Cost</div>
                       <div className="text-2xl font-display font-bold text-primary">₹{analysis.cost}</div>
                       <button
                         onClick={(e) => {

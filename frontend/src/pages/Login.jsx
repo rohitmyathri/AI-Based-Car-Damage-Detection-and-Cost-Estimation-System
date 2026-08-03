@@ -222,21 +222,21 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-light-bg flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Back to Home Button */}
       <Link 
         to="/" 
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-primary transition group"
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white/90 border-2 border-gray-300 rounded-lg hover:border-primary transition group shadow-lg text-gray-900"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 group-hover:text-primary transition">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-gray-900 group-hover:text-primary transition">
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
         </svg>
-        <span className="group-hover:text-primary transition">Back to Home</span>
+        <span className="text-gray-900 group-hover:text-primary transition font-semibold">Back to Home</span>
       </Link>
 
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-400 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       {/* Forgot Password Modal */}
@@ -403,22 +403,22 @@ export default function Login() {
         className="relative z-10 w-full max-w-md mx-4"
       >
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-display font-extrabold mb-2">AI DAMAGE</h1>
-          <p className="text-gray-700">Log in to access your dashboard</p>
+          <h1 className="text-5xl font-display font-extrabold mb-2 text-white">CAR SCAN</h1>
+          <p className="text-cyan-100 font-semibold">Log in to access your dashboard</p>
         </div>
 
-        <div className="nature-border rounded-2xl p-8 bg-white/90 backdrop-blur">
+        <div className="rounded-2xl p-8 card-dark shadow-2xl border-2 border-white/10">
           <div className="flex gap-2 mb-8">
-            <button className="flex-1 py-3 nature-button rounded-lg font-semibold">Login</button>
-            <Link to="/signup" className="flex-1 py-3 border-2 border-gray-300 rounded-lg hover:border-primary transition text-center">
+            <button className="flex-1 py-3 nature-button rounded-lg font-semibold shadow-lg text-white">Login</button>
+            <Link to="/signup" className="flex-1 py-3 bg-slate-700 border-2 border-slate-600 text-white rounded-lg hover:bg-slate-600 transition text-center font-semibold">
               Sign Up
             </Link>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <h2 className="text-2xl font-display font-display font-bold mb-2">Welcome Back</h2>
-              <p className="text-gray-700 text-sm mb-6">Enter your credentials to continue</p>
+              <h2 className="text-2xl font-display font-bold mb-2 text-white">Welcome Back</h2>
+              <p className="text-gray-300 text-sm mb-6">Enter your credentials to continue</p>
             </div>
 
             {error && (
@@ -439,31 +439,31 @@ export default function Login() {
             )}
 
             <div>
-              <label className="block text-sm mb-2 font-semibold">Email</label>
+              <label className="block text-sm mb-2 font-semibold text-white">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
                 onBlur={handleEmailBlur}
                 placeholder="john@example.com"
-                className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition ${
-                  emailError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition ${
+                  emailError ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                 }`}
                 required
               />
               {emailError && (
-                <p className="mt-1 text-sm text-red-500 font-medium">{emailError}</p>
+                <p className="mt-1 text-sm text-red-400 font-medium">{emailError}</p>
               )}
             </div>
 
             <div>
               <div className="flex justify-between mb-2">
-                <label className="text-sm font-semibold">Password</label>
+                <label className="text-sm font-semibold text-white">Password</label>
                 <button 
                   type="button"
                   onClick={handleForgotPasswordClick}
                   disabled={loading}
-                  className="text-sm text-primary hover:underline disabled:opacity-50 font-medium"
+                  className="text-sm text-cyan-300 hover:underline disabled:opacity-50 font-medium"
                 >
                   Forgot password?
                 </button>
@@ -475,15 +475,15 @@ export default function Login() {
                   onChange={handlePasswordChange}
                   onBlur={handlePasswordBlur}
                   placeholder="Enter your password"
-                  className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition pr-12 ${
-                    passwordError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                  className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition pr-12 ${
+                    passwordError ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                   }`}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-primary transition"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cyan-300 transition"
                 >
                   {showPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -505,7 +505,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50"
+              className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50 text-white"
             >
               {loading ? 'Signing In...' : 'Sign In'}
             </button>

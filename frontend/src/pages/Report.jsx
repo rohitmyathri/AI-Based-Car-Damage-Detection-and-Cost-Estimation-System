@@ -88,8 +88,7 @@ function ImageWithBoundingBoxes({ imageUrl, detections }) {
   }
 
   // Construct full image URL
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-  const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${API_URL}${imageUrl}`
+  const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `http://localhost:5000${imageUrl}`
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -220,18 +219,18 @@ export default function Report() {
   return (
     <div className="min-h-screen bg-light-bg">
       {/* Header */}
-      <nav className="border-b border-primary/20 px-4 sm:px-8 py-4 bg-white/90 backdrop-blur">
+      <nav className="border-b border-primary/20 px-4 sm:px-8 py-4 glass-effect">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-4">
-            <button onClick={() => navigate(previousPage)} className="p-2 hover:text-primary transition text-gray-900">
+            <button onClick={() => navigate(previousPage)} className="p-2 hover:text-primary transition text-white">
               <ArrowLeft size={20} className="sm:w-6 sm:h-6" />
             </button>
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded flex items-center justify-center font-bold text-white text-sm sm:text-base">AI</div>
-              <span className="text-lg sm:text-2xl font-display font-bold text-gray-900">DAMAGESYS</span>
+              <span className="text-lg sm:text-2xl font-display font-bold text-white">CAR SCAN</span>
             </div>
           </div>
-          <div className="text-xs sm:text-sm text-gray-700 font-medium hidden sm:block">Premium User</div>
+          <div className="text-xs sm:text-sm text-gray-300 font-medium hidden sm:block">Premium User</div>
         </div>
       </nav>
 
@@ -244,8 +243,8 @@ export default function Report() {
           {/* Report Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6 sm:mb-8">
             <div>
-              <h1 className="text-2xl sm:text-4xl font-display font-extrabold mb-2 text-gray-900">ANALYSIS REPORT</h1>
-              <p className="text-sm sm:text-base text-gray-700 font-medium">ID: {analysis.reportId}</p>
+              <h1 className="text-2xl sm:text-4xl font-display font-extrabold mb-2 text-white">ANALYSIS REPORT</h1>
+              <p className="text-sm sm:text-base text-gray-300 font-medium">ID: {analysis.reportId}</p>
               <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3">
                 <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
                   analysis.status === 'completed' ? 'bg-green-500/20 text-green-400' :
@@ -269,7 +268,7 @@ export default function Report() {
             <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">
               <button
                 onClick={() => navigate('/analyze')}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-primary/50 text-gray-900 rounded-lg hover:border-primary hover:bg-primary/10 transition font-semibold"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-primary/50 text-white rounded-lg hover:border-primary hover:bg-primary/10 transition font-semibold"
               >
                 <RefreshCw size={16} className="sm:w-5 sm:h-5" /> Analyze Again
               </button>
@@ -283,8 +282,8 @@ export default function Report() {
           </div>
 
           {/* Status Management */}
-          <div className="nature-border rounded-xl p-4 sm:p-6 bg-white shadow-lg mb-6 sm:mb-8">
-            <h3 className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4" style={{ color: '#111827' }}>Review Status</h3>
+          <div className="nature-border rounded-xl p-4 sm:p-6 card-dark shadow-lg mb-6 sm:mb-8">
+            <h3 className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4 text-white">Review Status</h3>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={() => updateStatus('pending')}
@@ -337,19 +336,19 @@ export default function Report() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Image with Detection */}
-            <div className="nature-border rounded-xl p-4 sm:p-6 bg-white shadow-lg">
-              <h3 className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4" style={{ color: '#111827' }}>Damage Detection</h3>
+            <div className="nature-border rounded-xl p-4 sm:p-6 card-dark shadow-lg">
+              <h3 className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4 text-white">Damage Detection</h3>
               <ImageWithBoundingBoxes 
                 imageUrl={analysis.imageUrl} 
                 detections={analysis.detections || []} 
               />
               {analysis.detections && analysis.detections.length > 0 && (
                 <div className="mt-3 sm:mt-4 space-y-2">
-                  <div className="text-xs sm:text-sm font-bold" style={{ color: '#374151' }}>Detected Damages:</div>
+                  <div className="text-xs sm:text-sm font-bold text-gray-300">Detected Damages:</div>
                   {analysis.detections.map((detection, index) => (
-                    <div key={index} className="flex justify-between items-center bg-green-50 rounded p-2 sm:p-3 border border-green-200">
-                      <span className="text-xs sm:text-sm font-bold" style={{ color: '#111827' }}>{detection.damageType}</span>
-                      <span className="text-xs sm:text-sm font-bold" style={{ color: '#16A34A' }}>{detection.confidence}%</span>
+                    <div key={index} className="flex justify-between items-center bg-slate-700 rounded p-2 sm:p-3 border border-slate-600">
+                      <span className="text-xs sm:text-sm font-bold text-white">{detection.damageType}</span>
+                      <span className="text-xs sm:text-sm font-bold text-green-400">{detection.confidence}%</span>
                     </div>
                   ))}
                 </div>
@@ -359,28 +358,28 @@ export default function Report() {
             {/* Analysis Details */}
             <div className="space-y-4 sm:space-y-6">
               {/* Total Cost */}
-              <div className="nature-border rounded-xl p-4 sm:p-6 bg-white shadow-lg">
-                <div className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide" style={{ color: '#4B5563' }}>TOTAL ESTIMATED REPAIR COST</div>
-                <div className="text-3xl sm:text-6xl font-display font-black mb-3 sm:mb-4" style={{ color: '#15803D', fontWeight: '900' }}>{analysis.estimatedCost}</div>
+              <div className="nature-border rounded-xl p-4 sm:p-6 card-dark shadow-lg">
+                <div className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide text-gray-400">TOTAL ESTIMATED REPAIR COST</div>
+                <div className="text-3xl sm:text-6xl font-display font-black mb-3 sm:mb-4 text-green-400" style={{ fontWeight: '900' }}>{analysis.estimatedCost}</div>
                 
                 {/* Cost Breakdown */}
                 {analysis.costBreakdown && analysis.costBreakdown.length > 0 && (
-                  <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-gray-300">
-                    <div className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide" style={{ color: '#4B5563' }}>COST BREAKDOWN BY DAMAGE TYPE</div>
+                  <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-slate-600">
+                    <div className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide text-gray-400">COST BREAKDOWN BY DAMAGE TYPE</div>
                     <div className="space-y-2 sm:space-y-3">
                       {analysis.costBreakdown.map((damage, index) => (
-                        <div key={index} className="bg-green-50 rounded-lg p-3 sm:p-4 border-2 border-green-200">
+                        <div key={index} className="bg-slate-700 rounded-lg p-3 sm:p-4 border-2 border-slate-600">
                           <div className="flex justify-between items-start mb-1 sm:mb-2">
                             <div>
-                              <div className="font-black text-base sm:text-lg" style={{ color: '#111827' }}>
+                              <div className="font-black text-base sm:text-lg text-white">
                                 {damage.damageType} {damage.count > 1 && `(${damage.count}x)`}
                               </div>
-                              <div className="text-xs sm:text-sm font-bold" style={{ color: '#4B5563' }}>
+                              <div className="text-xs sm:text-sm font-bold text-gray-400">
                                 {damage.severity} • {damage.avgConfidence}% confidence
                               </div>
                             </div>
                           </div>
-                          <div className="font-black text-lg sm:text-xl" style={{ color: '#15803D' }}>
+                          <div className="font-black text-lg sm:text-xl text-green-400">
                             {damage.costRange}
                           </div>
                         </div>
@@ -389,17 +388,17 @@ export default function Report() {
                   </div>
                 )}
                 
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-gray-300">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-slate-600">
                   <div>
-                    <div className="text-xs sm:text-sm font-bold mb-1" style={{ color: '#4B5563' }}>Primary Damage</div>
-                    <div className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.damageDetection.damageType}</div>
+                    <div className="text-xs sm:text-sm font-bold mb-1 text-gray-400">Primary Damage</div>
+                    <div className="font-black text-base sm:text-xl text-white">{analysis.damageDetection.damageType}</div>
                   </div>
                   <div>
-                    <div className="text-xs sm:text-sm font-bold mb-1" style={{ color: '#4B5563' }}>Overall Severity</div>
+                    <div className="text-xs sm:text-sm font-bold mb-1 text-gray-400">Overall Severity</div>
                     <div className="font-black text-base sm:text-xl" style={{
-                      color: analysis.damageDetection.severity === 'Severe' ? '#991B1B' :
-                             analysis.damageDetection.severity === 'Moderate' ? '#C2410C' :
-                             '#15803D'
+                      color: analysis.damageDetection.severity === 'Severe' ? '#EF4444' :
+                             analysis.damageDetection.severity === 'Moderate' ? '#F59E0B' :
+                             '#10B981'
                     }}>
                       {analysis.damageDetection.severity}
                     </div>
@@ -408,60 +407,60 @@ export default function Report() {
               </div>
 
               {/* AI Confidence */}
-              <div className="nature-border rounded-xl p-4 sm:p-6 bg-white shadow-lg">
-                <div className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4" style={{ color: '#111827' }}>AI Confidence Score</div>
+              <div className="nature-border rounded-xl p-4 sm:p-6 card-dark shadow-lg">
+                <div className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4 text-white">AI Confidence Score</div>
                 <div className="space-y-3">
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-xs sm:text-sm font-bold" style={{ color: '#4B5563' }}>Detection Confidence</span>
-                      <span className="font-black text-xl sm:text-2xl" style={{ color: '#15803D' }}>{analysis.damageDetection.confidence}%</span>
+                      <span className="text-xs sm:text-sm font-bold text-gray-400">Detection Confidence</span>
+                      <span className="font-black text-xl sm:text-2xl text-green-400">{analysis.damageDetection.confidence}%</span>
                     </div>
-                    <div className="w-full bg-gray-300 rounded-full h-3 sm:h-4">
+                    <div className="w-full bg-slate-700 rounded-full h-3 sm:h-4">
                       <div
                         className="bg-primary h-3 sm:h-4 rounded-full transition-all"
-                        style={{ width: `${analysis.damageDetection.confidence}%`, backgroundColor: '#16A34A' }}
+                        style={{ width: `${analysis.damageDetection.confidence}%`, backgroundColor: '#10B981' }}
                       ></div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-2 border-gray-300">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t-2 border-slate-600">
                     <div>
-                      <div className="text-xs sm:text-sm font-bold mb-1" style={{ color: '#4B5563' }}>Affected Area</div>
-                      <div className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.damageDetection.affectedArea} px²</div>
+                      <div className="text-xs sm:text-sm font-bold mb-1 text-gray-400">Affected Area</div>
+                      <div className="font-black text-base sm:text-xl text-white">{analysis.damageDetection.affectedArea} px²</div>
                     </div>
                     <div>
-                      <div className="text-xs sm:text-sm font-bold mb-1" style={{ color: '#4B5563' }}>Model Version</div>
-                      <div className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.modelVersion}</div>
+                      <div className="text-xs sm:text-sm font-bold mb-1 text-gray-400">Model Version</div>
+                      <div className="font-black text-base sm:text-xl text-white">{analysis.modelVersion}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Vehicle Info */}
-              <div className="nature-border rounded-xl p-4 sm:p-6 bg-white shadow-lg">
-                <div className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4" style={{ color: '#111827' }}>Vehicle Information</div>
+              <div className="nature-border rounded-xl p-4 sm:p-6 card-dark shadow-lg">
+                <div className="text-base sm:text-lg font-display font-bold mb-3 sm:mb-4 text-white">Vehicle Information</div>
                 <div className="space-y-2 sm:space-y-3">
                   {analysis.vehicleDetails.carCategory && (
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-sm sm:text-base" style={{ color: '#4B5563' }}>Category:</span>
-                      <span className="font-black text-base sm:text-xl" style={{ color: '#15803D' }}>{analysis.vehicleDetails.carCategory}</span>
+                      <span className="font-bold text-sm sm:text-base text-gray-400">Category:</span>
+                      <span className="font-black text-base sm:text-xl text-green-400">{analysis.vehicleDetails.carCategory}</span>
                     </div>
                   )}
                   {analysis.vehicleDetails.carType && (
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-sm sm:text-base" style={{ color: '#4B5563' }}>Type:</span>
-                      <span className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.vehicleDetails.carType}</span>
+                      <span className="font-bold text-sm sm:text-base text-gray-400">Type:</span>
+                      <span className="font-black text-base sm:text-xl text-white">{analysis.vehicleDetails.carType}</span>
                     </div>
                   )}
                   {analysis.vehicleDetails.brand && (
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-sm sm:text-base" style={{ color: '#4B5563' }}>Brand:</span>
-                      <span className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.vehicleDetails.brand}</span>
+                      <span className="font-bold text-sm sm:text-base text-gray-400">Brand:</span>
+                      <span className="font-black text-base sm:text-xl text-white">{analysis.vehicleDetails.brand}</span>
                     </div>
                   )}
                   {analysis.vehicleDetails.model && (
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-sm sm:text-base" style={{ color: '#4B5563' }}>Model:</span>
-                      <span className="font-black text-base sm:text-xl" style={{ color: '#111827' }}>{analysis.vehicleDetails.model}</span>
+                      <span className="font-bold text-sm sm:text-base text-gray-400">Model:</span>
+                      <span className="font-black text-base sm:text-xl text-white">{analysis.vehicleDetails.model}</span>
                     </div>
                   )}
                 </div>

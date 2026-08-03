@@ -140,20 +140,21 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-light-bg flex items-center justify-center relative overflow-hidden py-12">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-12">
       {/* Back to Home Button */}
       <Link 
         to="/" 
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-primary transition group"
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-4 py-2 bg-white/90 border-2 border-gray-300 rounded-lg hover:border-primary transition group shadow-lg text-gray-900"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 group-hover:text-primary transition">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-gray-900 group-hover:text-primary transition">
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
         </svg>
-        <span className="group-hover:text-primary transition">Back to Home</span>
+        <span className="text-gray-900 group-hover:text-primary transition font-semibold">Back to Home</span>
       </Link>
 
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-400 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <motion.div
@@ -162,33 +163,33 @@ export default function Signup() {
         className="relative z-10 w-full max-w-md mx-4"
       >
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-display font-extrabold mb-2">AI DAMAGE</h1>
-          <p className="text-gray-700">Log in to access your dashboard</p>
+          <h1 className="text-5xl font-display font-extrabold mb-2 text-white">CAR SCAN</h1>
+          <p className="text-cyan-100 font-semibold">Create your account today</p>
         </div>
 
-        <div className="nature-border rounded-2xl p-8 bg-white/90 backdrop-blur">
+        <div className="rounded-2xl p-8 card-dark shadow-2xl border-2 border-white/10">
           <div className="flex gap-2 mb-8">
-            <Link to="/login" className="flex-1 py-3 border-2 border-gray-300 rounded-lg hover:border-primary transition text-center">
+            <Link to="/login" className="flex-1 py-3 bg-slate-700 border-2 border-slate-600 text-white rounded-lg hover:bg-slate-600 transition text-center font-semibold">
               Login
             </Link>
-            <button className="flex-1 py-3 nature-button rounded-lg font-semibold">Sign Up</button>
+            <button className="flex-1 py-3 nature-button rounded-lg font-semibold shadow-lg text-white">Sign Up</button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <h2 className="text-2xl font-display font-display font-bold mb-2">Create Account</h2>
-              <p className="text-gray-700 text-sm mb-6">Join thousands of users today</p>
+              <h2 className="text-2xl font-display font-bold mb-2 text-white">Create Account</h2>
+              <p className="text-gray-300 text-sm mb-6">Join thousands of users today</p>
             </div>
 
             {error && (
-              <div className="bg-red-500/20 border border-red-500 rounded-lg p-3 text-red-400 text-sm">
+              <div className="bg-red-500/20 border-2 border-red-500 rounded-lg p-4 text-red-400 text-sm">
                 {error}
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm mb-2 font-semibold">First Name</label>
+                <label className="block text-sm mb-2 font-semibold text-white">First Name</label>
                 <input
                   type="text"
                   name="firstName"
@@ -196,17 +197,17 @@ export default function Signup() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="John"
-                  className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition ${
-                    fieldErrors.firstName ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                  className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition ${
+                    fieldErrors.firstName ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                   }`}
                   required
                 />
                 {fieldErrors.firstName && (
-                  <p className="mt-1 text-xs text-red-500 font-medium">{fieldErrors.firstName}</p>
+                  <p className="mt-1 text-xs text-red-400 font-medium">{fieldErrors.firstName}</p>
                 )}
               </div>
               <div>
-                <label className="block text-sm mb-2 font-semibold">Last Name</label>
+                <label className="block text-sm mb-2 font-semibold text-white">Last Name</label>
                 <input
                   type="text"
                   name="lastName"
@@ -214,19 +215,19 @@ export default function Signup() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Doe"
-                  className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition ${
-                    fieldErrors.lastName ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                  className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition ${
+                    fieldErrors.lastName ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                   }`}
                   required
                 />
                 {fieldErrors.lastName && (
-                  <p className="mt-1 text-xs text-red-500 font-medium">{fieldErrors.lastName}</p>
+                  <p className="mt-1 text-xs text-red-400 font-medium">{fieldErrors.lastName}</p>
                 )}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm mb-2 font-semibold">Email</label>
+              <label className="block text-sm mb-2 font-semibold text-white">Email</label>
               <input
                 type="email"
                 name="email"
@@ -234,18 +235,18 @@ export default function Signup() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="john@example.com"
-                className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition ${
-                  fieldErrors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition ${
+                  fieldErrors.email ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                 }`}
                 required
               />
               {fieldErrors.email && (
-                <p className="mt-1 text-sm text-red-500 font-medium">{fieldErrors.email}</p>
+                <p className="mt-1 text-sm text-red-400 font-medium">{fieldErrors.email}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm mb-2 font-semibold">Password</label>
+              <label className="block text-sm mb-2 font-semibold text-white">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -254,8 +255,8 @@ export default function Signup() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="At least 6 characters"
-                  className={`w-full px-4 py-3 bg-light-bg border-2 rounded-lg focus:outline-none transition pr-12 ${
-                    fieldErrors.password ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-primary'
+                  className={`w-full px-4 py-3 bg-slate-700 text-white placeholder-gray-400 border-2 rounded-lg focus:outline-none transition pr-12 ${
+                    fieldErrors.password ? 'border-red-500 focus:border-red-500' : 'border-slate-600 focus:border-primary'
                   }`}
                   required
                   minLength={6}
@@ -263,7 +264,7 @@ export default function Signup() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-primary transition"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cyan-300 transition"
                 >
                   {showPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -278,12 +279,12 @@ export default function Signup() {
                 </button>
               </div>
               {fieldErrors.password && (
-                <p className="mt-1 text-sm text-red-500 font-medium">{fieldErrors.password}</p>
+                <p className="mt-1 text-sm text-red-400 font-medium">{fieldErrors.password}</p>
               )}
               {formData.password && !fieldErrors.password && passwordStrength && (
                 <div className="mt-2">
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-slate-600 rounded-full overflow-hidden">
                       <div 
                         className={`h-full transition-all ${
                           passwordStrength === 'Weak' ? 'w-1/3 bg-red-500' :
@@ -293,14 +294,14 @@ export default function Signup() {
                       ></div>
                     </div>
                     <span className={`text-xs font-bold ${
-                      passwordStrength === 'Weak' ? 'text-red-500' :
-                      passwordStrength === 'Medium' ? 'text-yellow-600' :
-                      'text-green-600'
+                      passwordStrength === 'Weak' ? 'text-red-400' :
+                      passwordStrength === 'Medium' ? 'text-yellow-400' :
+                      'text-green-400'
                     }`}>
                       {passwordStrength}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-gray-600">
+                  <p className="mt-1 text-xs text-gray-400">
                     💡 Use 8+ characters with uppercase, lowercase, numbers & symbols for a strong password
                   </p>
                 </div>
@@ -310,7 +311,7 @@ export default function Signup() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50"
+              className="w-full py-4 nature-button rounded-lg font-semibold text-lg disabled:opacity-50 text-white"
             >
               {loading ? 'Creating Account...' : 'Sign Up'}
             </button>

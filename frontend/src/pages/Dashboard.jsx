@@ -6,8 +6,6 @@ import { motion } from 'framer-motion'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { TrendingUp, IndianRupee, CheckCircle, Clock, Plus, LogOut } from 'lucide-react'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-
 export default function Dashboard() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
@@ -44,7 +42,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-light-bg">
+    <div className="min-h-screen">
       {/* Logout Confirmation Modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 bg-light-bg/70 flex items-center justify-center z-50">
@@ -74,21 +72,21 @@ export default function Dashboard() {
       )}
 
       {/* Header */}
-      <nav className="border-b border-primary/20 px-8 py-4 bg-white/80 backdrop-blur">
+      <nav className="border-b border-primary/20 px-8 py-4 glass-effect shadow-lg">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-bold text-gray-900">AI</div>
-            <span className="text-2xl font-display font-bold text-gray-900">DAMAGESYS</span>
+            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center font-bold text-white shadow-lg">AI</div>
+            <span className="text-2xl font-display font-bold text-white">CAR SCAN</span>
           </div>
           <div className="flex items-center gap-6">
             <div className="text-right">
-              <div className="text-sm text-gray-600">Premium User</div>
-              <div className="font-semibold text-gray-900">{user?.firstName} {user?.lastName}</div>
+              <div className="text-sm text-cyan-200">Premium User</div>
+              <div className="font-semibold text-white">{user?.firstName} {user?.lastName}</div>
             </div>
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-bold text-gray-900">
+            <div className="w-10 h-10 bg-gradient-secondary rounded-full flex items-center justify-center font-bold text-white shadow-lg">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </div>
-            <button onClick={() => setShowLogoutConfirm(true)} className="p-2 hover:text-primary transition text-gray-900">
+            <button onClick={() => setShowLogoutConfirm(true)} className="p-2 hover:text-red-400 transition text-white">
               <LogOut size={20} />
             </button>
           </div>
@@ -99,8 +97,8 @@ export default function Dashboard() {
         {/* Page Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-display font-extrabold mb-2 text-gray-900">DASHBOARD</h1>
-            <p className="text-gray-600">Overview of your damage analysis activity</p>
+            <h1 className="text-4xl font-display font-extrabold mb-2 text-white">DASHBOARD</h1>
+            <p className="text-cyan-100">Overview of your damage analysis activity</p>
           </div>
           <div className="flex gap-3">
             <button
@@ -111,13 +109,13 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => navigate('/batch-analyze')}
-              className="flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-gray-900 transition"
+              className="flex items-center gap-2 px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition"
             >
               Batch Upload
             </button>
             <button
               onClick={() => navigate('/compare-analyze')}
-              className="flex items-center gap-2 px-6 py-3 border-2 border-secondary text-olive rounded-lg font-semibold hover:bg-secondary hover:text-gray-900 transition"
+              className="flex items-center gap-2 px-6 py-3 border-2 border-cyan-300 text-cyan-300 rounded-lg font-semibold hover:bg-cyan-300/10 transition"
             >
               Compare
             </button>
@@ -127,24 +125,26 @@ export default function Dashboard() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[
-            { icon: TrendingUp, label: 'Total Scans', value: stats?.stats.totalScans || 0, change: '+2 from last week', color: 'text-secondary' },
-            { icon: IndianRupee, label: 'Avg Repair Cost', value: `₹${(stats?.stats.avgRepairCost || 0).toLocaleString('en-IN')}`, change: '+1.5% from last month', color: 'text-olive' },
-            { icon: CheckCircle, label: 'Accuracy Rate', value: `${stats?.stats.accuracyRate || 0}%`, change: 'Based on user feedback', color: 'text-primary' },
-            { icon: Clock, label: 'Pending Reviews', value: stats?.stats.pendingReviews || 0, change: 'Action required', color: 'text-orange-500' }
+            { icon: TrendingUp, label: 'Total Scans', value: stats?.stats.totalScans || 0, change: '+2 from last week', gradient: 'from-blue-500 to-blue-600', bg: 'gradient-card-blue', iconBg: 'bg-blue-500' },
+            { icon: IndianRupee, label: 'Avg Repair Cost', value: `₹${(stats?.stats.avgRepairCost || 0).toLocaleString('en-IN')}`, change: '+1.5% from last month', gradient: 'from-purple-500 to-purple-600', bg: 'gradient-card-purple', iconBg: 'bg-purple-500' },
+            { icon: CheckCircle, label: 'Accuracy Rate', value: `${stats?.stats.accuracyRate || 0}%`, change: 'Based on user feedback', gradient: 'from-emerald-500 to-emerald-600', bg: 'gradient-card-emerald', iconBg: 'bg-emerald-500' },
+            { icon: Clock, label: 'Pending Reviews', value: stats?.stats.pendingReviews || 0, change: 'Action required', gradient: 'from-amber-500 to-amber-600', bg: 'gradient-card-amber', iconBg: 'bg-amber-500' }
           ].map((stat, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="nature-border rounded-xl p-6 bg-white/80"
+              className={`rounded-xl p-6 ${stat.bg} border-2 border-white/10 shadow-lg card-hover`}
             >
               <div className="flex items-center justify-between mb-4">
-                <stat.icon className={`${stat.color}`} size={24} />
+                <div className={`w-12 h-12 ${stat.iconBg} rounded-lg flex items-center justify-center shadow-md`}>
+                  <stat.icon className="text-white" size={24} />
+                </div>
               </div>
-              <div className="text-3xl font-display font-bold mb-1 text-gray-900">{stat.value}</div>
-              <div className="text-sm text-gray-700 mb-2">{stat.label}</div>
-              <div className="text-xs text-gray-500">{stat.change}</div>
+              <div className={`text-3xl font-display font-bold mb-1 text-white`}>{stat.value}</div>
+              <div className="text-sm text-gray-200 font-semibold mb-2">{stat.label}</div>
+              <div className="text-xs text-gray-300">{stat.change}</div>
             </motion.div>
           ))}
         </div>
@@ -156,18 +156,18 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             onClick={() => navigate('/analyze')}
-            className="nature-border rounded-xl p-6 bg-gradient-to-br from-primary/20 to-white cursor-pointer hover:from-primary/30 transition"
+            className="rounded-xl p-6 bg-gradient-card-blue border-2 border-white/10 cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             <div className="flex items-center gap-4 mb-3">
-              <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                <Plus className="text-primary" size={24} />
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Plus className="text-white" size={28} />
               </div>
               <div>
-                <h3 className="text-xl font-display font-display font-bold text-gray-900">Single Analysis</h3>
-                <p className="text-sm text-gray-600">Analyze one image</p>
+                <h3 className="text-xl font-display font-bold text-white">Single Analysis</h3>
+                <p className="text-sm text-gray-300">Analyze one image</p>
               </div>
             </div>
-            <p className="text-sm text-gray-700 font-medium">Upload a single vehicle image for quick damage detection and cost estimation</p>
+            <p className="text-sm text-gray-200 font-medium">Upload a single vehicle image for quick damage detection and cost estimation</p>
           </motion.div>
 
           <motion.div
@@ -175,11 +175,11 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             onClick={() => navigate('/batch-analyze')}
-            className="nature-border rounded-xl p-6 bg-gradient-to-br from-secondary/20 to-white cursor-pointer hover:from-secondary/30 transition"
+            className="rounded-xl p-6 bg-gradient-card-purple border-2 border-white/10 cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             <div className="flex items-center gap-4 mb-3">
-              <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center">
-                <svg className="text-olive" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg className="text-white" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="7" />
                   <rect x="14" y="3" width="7" height="7" />
                   <rect x="14" y="14" width="7" height="7" />
@@ -187,11 +187,11 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div>
-                <h3 className="text-xl font-display font-display font-bold text-gray-900">Batch Upload</h3>
-                <p className="text-sm text-gray-600">Up to 10 images</p>
+                <h3 className="text-xl font-display font-bold text-white">Batch Upload</h3>
+                <p className="text-sm text-gray-300">Up to 10 images</p>
               </div>
             </div>
-            <p className="text-sm text-gray-700 font-medium">Process multiple vehicle images at once with real-time progress tracking</p>
+            <p className="text-sm text-gray-200 font-medium">Process multiple vehicle images at once with real-time progress tracking</p>
           </motion.div>
 
           <motion.div
@@ -199,50 +199,57 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             onClick={() => navigate('/compare-analyze')}
-            className="nature-border rounded-xl p-6 bg-gradient-to-br from-olive/20 to-white cursor-pointer hover:from-olive/30 transition"
+            className="rounded-xl p-6 bg-gradient-card-amber border-2 border-white/10 cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             <div className="flex items-center gap-4 mb-3">
-              <div className="w-12 h-12 bg-olive/20 rounded-lg flex items-center justify-center">
-                <svg className="text-olive" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg className="text-white" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="18" />
                   <rect x="14" y="3" width="7" height="18" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-xl font-display font-display font-bold text-gray-900">Compare Images</h3>
-                <p className="text-sm text-gray-600">Side-by-side analysis</p>
+                <h3 className="text-xl font-display font-bold text-white">Compare Images</h3>
+                <p className="text-sm text-gray-300">Side-by-side analysis</p>
               </div>
             </div>
-            <p className="text-sm text-gray-700 font-medium">Compare two vehicle images to see damage differences and cost variations</p>
+            <p className="text-sm text-gray-200 font-medium">Compare two vehicle images to see damage differences and cost variations</p>
           </motion.div>
         </div>
 
         {/* Charts and Recent Analysis */}
         <div className="grid md:grid-cols-3 gap-6">
           {/* Cost Trends Chart */}
-          <div className="md:col-span-2 nature-border rounded-xl p-6 bg-white/80">
-            <h2 className="text-xl font-display font-display font-bold mb-6 text-gray-900">Cost Estimation Trends (INR)</h2>
+          <div className="md:col-span-2 rounded-xl p-6 card-dark shadow-lg border-2 border-white/10">
+            <h2 className="text-xl font-display font-bold mb-6 text-white">Cost Estimation Trends (INR)</h2>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={stats?.costTrends || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
-                <XAxis dataKey="day" stroke="#6b7280" />
-                <YAxis stroke="#6b7280" tickFormatter={(value) => `₹${(value / 1000).toFixed(0)}k`} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                <XAxis dataKey="day" stroke="#94a3b8" />
+                <YAxis stroke="#94a3b8" tickFormatter={(value) => `₹${(value / 1000).toFixed(0)}k`} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#ffffff', border: '2px solid #16A34A', borderRadius: '8px' }}
-                  labelStyle={{ color: '#111827' }}
+                  contentStyle={{ backgroundColor: '#1e293b', border: '2px solid #3B82F6', borderRadius: '12px', boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)', color: '#fff' }}
+                  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
                   formatter={(value) => [`₹${value.toLocaleString('en-IN')}`, 'Avg Cost']}
                 />
-                <Line type="monotone" dataKey="cost" stroke="#16A34A" strokeWidth={3} dot={{ fill: '#16A34A', r: 5 }} />
+                <Line type="monotone" dataKey="cost" stroke="url(#colorGradient)" strokeWidth={3} dot={{ fill: '#3B82F6', r: 6, strokeWidth: 2, stroke: '#fff' }} />
+                <defs>
+                  <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#3B82F6" />
+                    <stop offset="50%" stopColor="#8B5CF6" />
+                    <stop offset="100%" stopColor="#F59E0B" />
+                  </linearGradient>
+                </defs>
               </LineChart>
             </ResponsiveContainer>
           </div>
 
           {/* Recent Analysis */}
-          <div className="nature-border rounded-xl p-6 bg-white/80">
+          <div className="rounded-xl p-6 card-dark shadow-lg border-2 border-white/10">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-display font-display font-bold text-gray-900">Recent Analysis</h2>
-              <button onClick={() => navigate('/history')} className="text-primary text-sm hover:underline">
-                View All History
+              <h2 className="text-xl font-display font-bold text-white">Recent Analysis</h2>
+              <button onClick={() => navigate('/history')} className="text-cyan-300 text-sm hover:underline font-semibold">
+                View All →
               </button>
             </div>
             <div className="space-y-4">
@@ -250,12 +257,12 @@ export default function Dashboard() {
                 <div
                   key={i}
                   onClick={() => navigate(`/report/${analysis.reportId}`)}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/10 cursor-pointer transition"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-700/50 hover:bg-slate-700 cursor-pointer transition-all duration-300 border border-slate-600"
                 >
-                  <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                  <div className="w-12 h-12 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0 shadow-md">
                     {analysis.imageUrl ? (
                       <img 
-                        src={`${API_URL}${analysis.imageUrl}`} 
+                        src={`http://localhost:5000${analysis.imageUrl}`} 
                         alt="Vehicle damage" 
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -270,12 +277,12 @@ export default function Dashboard() {
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="font-semibold text-sm text-gray-900">{analysis.vehicleName || 'Unknown Vehicle'}</div>
-                    <div className="text-xs text-gray-600">{analysis.damageType}</div>
+                    <div className="font-semibold text-sm text-white">{analysis.vehicleName || 'Unknown Vehicle'}</div>
+                    <div className="text-xs text-gray-300">{analysis.damageType}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-primary font-bold">₹{analysis.cost}</div>
-                    <div className="text-xs text-gray-500">{new Date(analysis.date).toLocaleDateString()}</div>
+                    <div className="text-cyan-300 font-bold">₹{analysis.cost}</div>
+                    <div className="text-xs text-gray-400">{new Date(analysis.date).toLocaleDateString()}</div>
                   </div>
                 </div>
               ))}
