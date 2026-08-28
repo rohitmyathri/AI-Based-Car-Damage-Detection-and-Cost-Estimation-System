@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Register – Car Damage AI{% endblock %}
+
+{% block content %}
+<div class="page flex-center" style="min-height:85vh;">
+  <div class="card" style="width:100%;max-width:440px;">
+    <div class="text-center mb-3">
+      <div style="font-size:3rem;margin-bottom:12px;">🚗</div>
+      <h2 style="font-size:1.7rem;font-weight:800;margin-bottom:6px;">Create account</h2>
+      <p class="text-muted">Start your free damage analysis</p>
+    </div>
+
+    <form method="POST" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input class="form-input" type="email" name="email" placeholder="you@example.com" required autofocus/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password <span class="text-muted">(min 6 chars)</span></label>
+        <input class="form-input" type="password" name="password" id="pw" placeholder="••••••••" required minlength="6"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm password</label>
+        <input class="form-input" type="password" name="confirm_password" id="pw2" placeholder="••••••••" required minlength="6"/>
+        <div id="pw-msg" style="font-size:.82rem;margin-top:6px;"></div>
+      </div>
+      <button type="submit" class="btn btn-success btn-block btn-lg mt-2">Create Account</button>
+    </form>
+
+    <p class="text-center text-muted mt-3" style="font-size:.9rem;">
+      Already have an account? <a href="{{ url_for('login') }}">Sign in</a>
+    </p>
+  </div>
+</div>
+
+{% block scripts %}
+<script>
+  const pw=document.getElementById('pw'), pw2=document.getElementById('pw2'), msg=document.getElementById('pw-msg');
+  function check(){
+    if(!pw2.value) { msg.textContent=''; return; }
+    if(pw.value===pw2.value){ msg.style.color='#6ee7b7'; msg.textContent='✓ Passwords match'; }
+    else { msg.style.color='#fca5a5'; msg.textContent='✗ Passwords do not match'; }
+  }
+  pw.addEventListener('input',check);
+  pw2.addEventListener('input',check);
+</script>
+{% endblock %}
+{% endblock %}

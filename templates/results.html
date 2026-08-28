@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Analysis Results – Car Damage AI{% endblock %}
+
+{% block content %}
+<div class="page" style="max-width:900px;margin:0 auto;">
+
+  <div style="margin-bottom:28px;">
+    <a href="{{ url_for('dashboard') }}" class="text-muted" style="font-size:.9rem;">← Back to Dashboard</a>
+    <h1 style="font-size:1.8rem;font-weight:800;margin-top:16px;margin-bottom:4px;">Analysis Results</h1>
+    <p class="text-muted" style="font-size:.9rem;">{{ analysis['created_at'] }}</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;">
+
+    <!-- Left: Images -->
+    <div>
+      {% if analysis['annotated_b64'] %}
+      <!-- Tab switcher -->
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <button class="btn btn-sm btn-primary" id="tab-annotated" onclick="showTab('annotated')">AI Annotated</button>
+        <button class="btn btn-sm btn-outline" id="tab-original"  onclick="showTab('original')">Original</button>
+      </div>
+      <div id="img-annotated">
+        <img src="data:image/jpeg;base64,{{ analysis['annotated_b64'] }}"
+             alt="Annotated damage"
+             style="width:100%;border-radius:12px;border:2px solid rgba(99,102,241,.4);"/>
+        <p class="text-muted mt-1" style="font-size:.8rem;text-align:center;">🤖 AI bounding boxes overlaid</p>
+      </div>
+      <div id="img-original" style="display:none;">
+        <img src="{{ url_for('static', filename='uploads/' + analysis['image_path']) }}"
+             alt="Original photo"
+             style="width:100%;border-radius:12px;border:1px solid var(--border);"
+             onerror="this.src='';this.alt='Image not found';"/>
+      </div>
+      {% else %}
+      <img src="{{ url_for('static', filename='uploads/' + analysis['image_path']) }}"
+           alt="Uploaded photo"
+           style="width:100%;border-radius:12px;border:1px solid var(--border);"
+           onerror="this.alt='Image not found';"/>
+      {% endif %}
+    </div>
+
+    <!-- Right: Results -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Damage Type -->
+      <div class="card card-sm" style="border-color:rgba(239,68,68,.3);">
+        <div class="text-muted" style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Damage Type</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:2rem;">
+            {% set icons = {'dent':'🔨','scratch':'✏️','crack':'💥','broken_glass':'🪟','rust':'🔴','no_damage':'✅'} %}
+            {{ icons.get(analysis['damage_type'], '⚠️') }}
+          </span>
+          <span style="font-size:1.4rem;font-weight:800;text-transform:capitalize;">
+            {{ analysis['damage_type'].replace('_',' ') }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="card card-sm" style="border-color:
+        {% if analysis['severity']=='high' %}rgba(239,68,68,.3)
+        {% elif analysis['severity']=='medium' %}rgba(245,158,11,.3)
+        {% else %}rgba(16,185,129,.3){% endif %};">
+        <div class="text-muted" style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Severity</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="badge badge-{{ analysis['severity'] }}" style="font-size:1rem;padding:6px 18px;">
+            {{ analysis['severity']|upper }}
+          </span>
+          <div style="flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;">
+            <div style="height:100%;border-radius:4px;width:
+              {% if analysis['severity']=='high' %}90{% elif analysis['severity']=='medium' %}55{% else %}20{% endif %}%;
+              background:{% if analysis['severity']=='high' %}#ef4444{% elif analysis['severity']=='medium' %}#f59e0b{% else %}#10b981{% endif %};
+              transition:width .6s ease;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confidence -->
+      <div class="card card-sm">
+        <div class="text-muted" style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">AI Confidence</div>
+        {% set pct = (analysis['confidence'] * 100)|round(1) %}
+        <div style="font-size:1.8rem;font-weight:800;color:var(--primary-light);">{{ pct }}%</div>
+        <div style="height:6px;background:var(--surface2);border-radius:3px;margin-top:8px;overflow:hidden;">
+          <div style="height:100%;width:{{ pct }}%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:3px;"></div>
+        </div>
+      </div>
+
+      <!-- Cost -->
+      <div class="card card-sm" style="border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.05);">
+        <div class="text-muted" style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Estimated Repair Cost</div>
+        <div style="font-size:2.2rem;font-weight:800;color:#6ee7b7;">${{ "%.2f"|format(analysis['estimated_cost']) }}</div>
+        <div class="text-muted" style="font-size:.82rem;margin-top:4px;">
+          Vehicle: <strong style="color:var(--text);text-transform:capitalize;">{{ analysis['car_category'] }}</strong>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+        <a href="{{ url_for('select_category') }}" class="btn btn-primary btn-block">🔍 New Analysis</a>
+        <a href="{{ url_for('history') }}"         class="btn btn-outline btn-block">📋 View History</a>
+      </div>
+
+    </div>
+  </div><!-- /grid -->
+
+</div>
+
+<style>
+  @media(max-width:640px){
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  }
+</style>
+
+{% block scripts %}
+<script>
+  function showTab(tab){
+    document.getElementById('img-annotated').style.display = tab==='annotated'?'block':'none';
+    document.getElementById('img-original').style.display  = tab==='original' ?'block':'none';
+    document.getElementById('tab-annotated').className = 'btn btn-sm '+(tab==='annotated'?'btn-primary':'btn-outline');
+    document.getElementById('tab-original').className  = 'btn btn-sm '+(tab==='original' ?'btn-primary':'btn-outline');
+  }
+</script>
+{% endblock %}
+{% endblock %}

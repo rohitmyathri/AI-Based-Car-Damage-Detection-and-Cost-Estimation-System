@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Damage Detection – AI-Powered</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh;overflow-x:hidden;}
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;position:relative;}
+    .hero::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(99,102,241,.25) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(168,85,247,.2) 0%,transparent 60%);pointer-events:none;}
+    .logo{font-size:5rem;margin-bottom:16px;animation:float 3s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;margin-bottom:20px;background:linear-gradient(135deg,#f1f5f9,#a5b4fc,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;}
+    .subtitle{font-size:1.2rem;color:#94a3b8;max-width:600px;margin-bottom:48px;line-height:1.7;}
+    .cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:80px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;border:none;text-decoration:none;transition:all .25s;}
+    .btn-primary{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.5);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.7);text-decoration:none;}
+    .btn-outline{background:transparent;border:2px solid #334155;color:#94a3b8;}
+    .btn-outline:hover{border-color:#6366f1;color:#a5b4fc;transform:translateY(-2px);text-decoration:none;}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:960px;width:100%;}
+    .feat{background:rgba(30,41,59,.8);border:1px solid #334155;border-radius:16px;padding:32px 24px;transition:all .3s;}
+    .feat:hover{border-color:#6366f1;transform:translateY(-6px);box-shadow:0 12px 40px rgba(99,102,241,.2);}
+    .feat-icon{font-size:2.5rem;margin-bottom:16px;}
+    .feat h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;}
+    .feat p{color:#94a3b8;font-size:.9rem;line-height:1.6;}
+    .stats{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;margin-bottom:60px;}
+    .stat{text-align:center;}
+    .stat-num{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .stat-lbl{color:#94a3b8;font-size:.9rem;margin-top:4px;}
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo">🚗</div>
+  <h1>AI Vehicle Damage<br/>Detection System</h1>
+  <p class="subtitle">Upload a car photo and get instant AI-powered damage analysis, severity classification, and repair cost estimation in seconds.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">5+</div><div class="stat-lbl">Damage Types</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Severity Levels</div></div>
+    <div class="stat"><div class="stat-num">YOLOv8</div><div class="stat-lbl">AI Model</div></div>
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Available</div></div>
+  </div>
+
+  <div class="cta-row">
+    <a href="{{ url_for('register') }}" class="btn btn-primary">🚀 Get Started Free</a>
+    <a href="{{ url_for('login') }}"    class="btn btn-outline">🔐 Sign In</a>
+  </div>
+
+  <div class="features">
+    <div class="feat"><div class="feat-icon">📸</div><h3>Easy Upload</h3><p>Drag & drop or click to upload. Preview before analysing.</p></div>
+    <div class="feat"><div class="feat-icon">🤖</div><h3>YOLOv8 AI</h3><p>State-of-the-art neural network detects dents, scratches, cracks and more.</p></div>
+    <div class="feat"><div class="feat-icon">📊</div><h3>Severity Score</h3><p>Low / Medium / High severity rating based on detection confidence and area.</p></div>
+    <div class="feat"><div class="feat-icon">💰</div><h3>Cost Estimate</h3><p>Rule-based repair cost adjusted for your vehicle category.</p></div>
+    <div class="feat"><div class="feat-icon">🖼️</div><h3>Bounding Boxes</h3><p>Visual overlay shows exactly where damage was detected.</p></div>
+    <div class="feat"><div class="feat-icon">📋</div><h3>Full History</h3><p>Every analysis is saved so you can review anytime.</p></div>
+  </div>
+</div>
+</body>
+</html>

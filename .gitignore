@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# Database (will be recreated on server)
+database/car_damage.db
+
+# YOLO model cache (auto-downloads on server)
+yolov8n.pt
+*.pt
+!models/best.pt
+
+# Uploads (user files)
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Test/dev files
+test_startup.py
+test_e2e.py
+inspect_db.py
+migrate_db.py
+
+# IDE
+.vscode/
+.idea/

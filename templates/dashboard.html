@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – Car Damage AI{% endblock %}
+
+{% block content %}
+<div class="page">
+  <!-- Welcome header -->
+  <div style="margin-bottom:32px;">
+    <h1 style="font-size:2rem;font-weight:800;margin-bottom:8px;">
+      👋 Welcome back<span style="color:var(--primary-light);">, {{ current_user_email }}</span>
+    </h1>
+    <p class="text-muted">Ready to analyse vehicle damage? Start a new analysis or review your history.</p>
+  </div>
+
+  <!-- Stats row -->
+  <div class="grid-3" style="margin-bottom:32px;">
+    <div class="card card-sm" style="border-color:rgba(99,102,241,.3);">
+      <div style="font-size:2.2rem;font-weight:800;color:var(--primary-light);">{{ total_analyses }}</div>
+      <div class="text-muted" style="font-size:.9rem;margin-top:4px;">Total Analyses</div>
+    </div>
+    <div class="card card-sm" style="border-color:rgba(16,185,129,.3);">
+      <div style="font-size:2.2rem;font-weight:800;color:#6ee7b7;">5</div>
+      <div class="text-muted" style="font-size:.9rem;margin-top:4px;">Damage Types Detected</div>
+    </div>
+    <div class="card card-sm" style="border-color:rgba(245,158,11,.3);">
+      <div style="font-size:2.2rem;font-weight:800;color:#fcd34d;">YOLOv8</div>
+      <div class="text-muted" style="font-size:.9rem;margin-top:4px;">AI Model</div>
+    </div>
+  </div>
+
+  <!-- Action card -->
+  <div class="card text-center" style="padding:48px;margin-bottom:32px;background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(168,85,247,.08));border-color:rgba(99,102,241,.3);">
+    <div style="font-size:4rem;margin-bottom:16px;">🔍</div>
+    <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:12px;">Start New Damage Analysis</h2>
+    <p class="text-muted" style="max-width:480px;margin:0 auto 28px;">Upload a car photo and get instant AI damage detection with repair cost estimation.</p>
+    <a href="{{ url_for('select_category') }}" class="btn btn-primary btn-lg">
+      🚀 Analyse Now
+    </a>
+  </div>
+
+  <!-- Recent analyses -->
+  {% if recent %}
+  <div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h3 style="font-size:1.2rem;font-weight:700;">Recent Analyses</h3>
+      <a href="{{ url_for('history') }}" class="btn btn-outline btn-sm">View All</a>
+    </div>
+    <div class="grid-3">
+      {% for a in recent %}
+      <div class="card card-sm" style="padding:16px;">
+        <img src="{{ url_for('static', filename='uploads/' + a['image_path']) }}"
+             style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:12px;"
+             onerror="this.style.display='none'"/>
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;">
+          <span style="font-weight:600;font-size:.95rem;text-transform:capitalize;">{{ a['damage_type'].replace('_',' ') }}</span>
+          <span class="badge badge-{{ a['severity'] }}">{{ a['severity'] }}</span>
+        </div>
+        <div class="text-muted" style="font-size:.82rem;margin-bottom:10px;">
+          💰 ${{ "%.0f"|format(a['estimated_cost']) }} &nbsp;·&nbsp;
+          {{ a['car_category'] }}
+        </div>
+        <a href="{{ url_for('results', analysis_id=a['id']) }}" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;">View Results</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="card text-center card-sm" style="color:var(--muted);">
+    <p>No analyses yet. <a href="{{ url_for('select_category') }}">Start your first analysis →</a></p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

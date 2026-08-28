@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}History – Car Damage AI{% endblock %}
+
+{% block content %}
+<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:6px;">Analysis History</h1>
+      <p class="text-muted">All your past vehicle damage analyses</p>
+    </div>
+    <a href="{{ url_for('select_category') }}" class="btn btn-primary">+ New Analysis</a>
+  </div>
+
+  {% if analyses %}
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    {% for a in analyses %}
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="display:flex;gap:0;align-items:stretch;">
+
+        <!-- Thumbnail -->
+        <div style="width:140px;flex-shrink:0;background:var(--surface2);">
+          <img src="{{ url_for('static', filename='uploads/' + a['image_path']) }}"
+               style="width:140px;height:140px;object-fit:cover;display:block;"
+               onerror="this.style.display='none'"/>
+        </div>
+
+        <!-- Info -->
+        <div style="flex:1;padding:20px 24px;display:flex;flex-direction:column;justify-content:center;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:1.1rem;font-weight:700;text-transform:capitalize;">
+              {{ a['damage_type'].replace('_',' ') }}
+            </span>
+            <span class="badge badge-{{ a['severity'] }}">{{ a['severity'] }}</span>
+            <span class="badge badge-info" style="text-transform:capitalize;">{{ a['car_category'] }}</span>
+          </div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <span class="text-muted" style="font-size:.88rem;">
+              🤖 Confidence: <strong style="color:var(--text);">{{ (a['confidence']*100)|round(1) }}%</strong>
+            </span>
+            <span class="text-muted" style="font-size:.88rem;">
+              💰 Cost: <strong style="color:#6ee7b7;">${{ "%.2f"|format(a['estimated_cost']) }}</strong>
+            </span>
+            <span class="text-muted" style="font-size:.88rem;">
+              📅 {{ a['created_at'] }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="padding:20px;display:flex;flex-direction:column;gap:8px;justify-content:center;flex-shrink:0;">
+          <a href="{{ url_for('results', analysis_id=a['id']) }}" class="btn btn-primary btn-sm">View</a>
+          <form method="POST" action="{{ url_for('delete_analysis', analysis_id=a['id']) }}"
+                onsubmit="return confirm('Delete this analysis?')">
+            <button type="submit" class="btn btn-danger btn-sm" style="width:100%;">Delete</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card text-center" style="padding:60px;">
+    <div style="font-size:4rem;margin-bottom:16px;">📭</div>
+    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px;">No analyses yet</h3>
+    <p class="text-muted" style="margin-bottom:24px;">Upload your first vehicle photo to get started.</p>
+    <a href="{{ url_for('select_category') }}" class="btn btn-primary">Start First Analysis</a>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  @media(max-width:560px){
+    div[style*="width:140px"]{width:80px!important;}
+    div[style*="width:140px;"] img{width:80px!important;height:80px!important;}
+  }
+</style>
+{% endblock %}

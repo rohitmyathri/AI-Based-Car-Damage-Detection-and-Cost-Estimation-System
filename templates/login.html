@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Login – Car Damage AI{% endblock %}
+
+{% block content %}
+<div class="page flex-center" style="min-height:85vh;">
+  <div class="card" style="width:100%;max-width:440px;">
+    <div class="text-center mb-3">
+      <div style="font-size:3rem;margin-bottom:12px;">🚗</div>
+      <h2 style="font-size:1.7rem;font-weight:800;margin-bottom:6px;">Welcome back</h2>
+      <p class="text-muted">Sign in to your account</p>
+    </div>
+
+    <form method="POST" autocomplete="on">
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input class="form-input" type="email" name="email" placeholder="you@example.com" required autofocus/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" name="password" placeholder="••••••••" required/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg mt-2">Sign In</button>
+    </form>
+
+    <p class="text-center text-muted mt-3" style="font-size:.9rem;">
+      Don't have an account? <a href="{{ url_for('register') }}">Create one</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
