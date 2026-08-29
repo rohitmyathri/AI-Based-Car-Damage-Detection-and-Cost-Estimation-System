@@ -11,14 +11,23 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'http://172.16.25.103:5173', // Allow mobile access
-  'https://hopp.pw',           // Hopscotch web
-  'https://hoppscotch.io',     // Hoppscotch
+  'http://172.16.25.103:5173',
+  'https://hopp.pw',
+  'https://hoppscotch.io',
+  'https://ai-based-car-damage-detection-and-c.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    // Allow all vercel.app domains
+    if (origin.includes('vercel.app') || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
   credentials: true
 }));
 app.use(express.json());
