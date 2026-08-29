@@ -5,6 +5,10 @@ const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
 
+// Set base URL from env variable
+const API_BASE = import.meta.env.VITE_API_URL || '/api'
+axios.defaults.baseURL = API_BASE.replace('/api', '')
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
