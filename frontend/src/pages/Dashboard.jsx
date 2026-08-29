@@ -5,6 +5,7 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { TrendingUp, IndianRupee, CheckCircle, Clock, Plus, LogOut } from 'lucide-react'
+import { API_URL, BASE_URL } from '../config'
 
 export default function Dashboard() {
   const { user, logout } = useAuth()
@@ -19,7 +20,7 @@ export default function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const res = await axios.get('/api/dashboard/stats')
+      const res = await axios.get(`${API_URL}/dashboard/stats`)
       setStats(res.data)
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error)

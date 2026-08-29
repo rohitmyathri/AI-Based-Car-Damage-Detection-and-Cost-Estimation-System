@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { Upload, X, ArrowLeft, CheckCircle, AlertCircle, Loader, HelpCircle } from 'lucide-react'
+import { API_URL } from '../config'
 
 // Tooltip component for explanations
 function InfoTooltip({ text }) {
@@ -133,7 +134,7 @@ export default function BatchAnalyze() {
         formData.append('image', image.file)
         formData.append('carCategory', image.carCategory || carCategory)
 
-        const res = await axios.post('/api/analysis/analyze', formData, {
+        const res = await axios.post(`${API_URL}/analysis/analyze`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         })
 

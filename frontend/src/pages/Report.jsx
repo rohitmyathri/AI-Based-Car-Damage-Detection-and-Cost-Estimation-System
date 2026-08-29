@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Download, RefreshCw } from 'lucide-react'
+import { API_URL, BASE_URL } from '../config'
 
 // Component to draw bounding boxes on image
 function ImageWithBoundingBoxes({ imageUrl, detections }) {
@@ -88,7 +89,7 @@ function ImageWithBoundingBoxes({ imageUrl, detections }) {
   }
 
   // Construct full image URL
-  const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `http://localhost:5000${imageUrl}`
+  const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${BASE_URL}${imageUrl}`
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -140,7 +141,7 @@ export default function Report() {
       // Handle both formats: with and without # prefix
       const cleanReportId = reportId.startsWith('%23') ? reportId.substring(3) : reportId.replace('#', '')
       console.log('Clean report ID:', cleanReportId)
-      const res = await axios.get(`/api/analysis/${encodeURIComponent(cleanReportId)}`)
+      const res = await axios.get(`${API_URL}/analysis/${encodeURIComponent(cleanReportId)}`)
       console.log('Analysis response:', res.data)
       setAnalysis(res.data.analysis)
     } catch (error) {
@@ -153,7 +154,7 @@ export default function Report() {
 
   const downloadPDF = async () => {
     try {
-      const res = await axios.get(`/api/analysis/${reportId}/pdf`, {
+      const res = await axios.get(`${API_URL}/analysis/${reportId}/pdf`, {
         responseType: 'blob'
       })
       const url = window.URL.createObjectURL(new Blob([res.data]))
@@ -172,7 +173,7 @@ export default function Report() {
     try {
       setStatusUpdating(true)
       const cleanReportId = reportId.startsWith('%23') ? reportId.substring(3) : reportId.replace('#', '')
-      await axios.patch(`/api/dashboard/${cleanReportId}/status`, {
+      await axios.patch(`${API_URL}/dashboard/${cleanReportId}/status`, {
         status: newStatus,
         needsReview: false
       })
@@ -189,7 +190,7 @@ export default function Report() {
       setStatusUpdating(true)
       const cleanReportId = reportId.startsWith('%23') ? reportId.substring(3) : reportId.replace('#', '')
       const newNeedsReview = !analysis.needsReview
-      await axios.patch(`/api/dashboard/${cleanReportId}/status`, {
+      await axios.patch(`${API_URL}/dashboard/${cleanReportId}/status`, {
         needsReview: newNeedsReview
       })
       setAnalysis({ ...analysis, needsReview: newNeedsReview })

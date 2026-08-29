@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import { API_URL } from '../config'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -122,7 +123,7 @@ export default function Login() {
     setLoading(true)
 
     try {
-      const response = await axios.post('/api/auth/forgot-password', { email })
+      const response = await axios.post(`${API_URL}/auth/forgot-password`, { email })
       
       // Check if user is registered
       if (response.data.registered === false) {
@@ -155,7 +156,7 @@ export default function Login() {
     setResetLoading(true)
 
     try {
-      const response = await axios.post('/api/auth/forgot-password', { email: resetEmail })
+      const response = await axios.post(`${API_URL}/auth/forgot-password`, { email: resetEmail })
       setResetMessage('OTP has been sent to your email. Please check your inbox.')
       setShowOTPVerification(true)
     } catch (err) {
@@ -171,7 +172,7 @@ export default function Login() {
     setResetLoading(true)
 
     try {
-      await axios.post('/api/auth/verify-otp', { email: resetEmail, otp })
+      await axios.post(`${API_URL}/auth/verify-otp`, { email: resetEmail, otp })
       setResetMessage('OTP verified! Please set your new password.')
       setShowNewPassword(true)
     } catch (err) {
@@ -198,7 +199,7 @@ export default function Login() {
     setResetLoading(true)
 
     try {
-      await axios.post('/api/auth/reset-password-otp', { 
+      await axios.post(`${API_URL}/auth/reset-password-otp`, { 
         email: resetEmail, 
         otp, 
         password: newPassword 

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { Upload, X, ArrowLeft, ArrowRight, HelpCircle } from 'lucide-react'
+import { API_URL } from '../config'
 
 // Tooltip component for explanations
 function InfoTooltip({ text }) {
@@ -119,7 +120,7 @@ export default function CompareAnalyze() {
       formData1.append('image', image1)
       formData1.append('carCategory', carCategory)
 
-      const res1 = await axios.post('/api/analysis/analyze', formData1, {
+      const res1 = await axios.post(`${API_URL}/analysis/analyze`, formData1, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -128,7 +129,7 @@ export default function CompareAnalyze() {
       formData2.append('image', image2)
       formData2.append('carCategory', carCategory)
 
-      const res2 = await axios.post('/api/analysis/analyze', formData2, {
+      const res2 = await axios.post(`${API_URL}/analysis/analyze`, formData2, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 

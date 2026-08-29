@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { Upload, X, ArrowLeft, Camera } from 'lucide-react'
+import { API_URL } from '../config'
 
 export default function Analyze() {
   const navigate = useNavigate()
@@ -71,7 +72,7 @@ export default function Analyze() {
       data.append('image', image)
       data.append('carCategory', formData.carCategory)
 
-      const res = await axios.post('/api/analysis/analyze', data, {
+      const res = await axios.post(`${API_URL}/analysis/analyze`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 

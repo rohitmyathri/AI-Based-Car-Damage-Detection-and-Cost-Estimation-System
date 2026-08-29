@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search, Filter, Calendar, Download } from 'lucide-react'
+import { API_URL, BASE_URL } from '../config'
 
 export default function History() {
   const { user } = useAuth()
@@ -19,7 +20,7 @@ export default function History() {
 
   const fetchHistory = async () => {
     try {
-      const res = await axios.get('/api/dashboard/stats')
+      const res = await axios.get(`${API_URL}/dashboard/stats`)
       setAnalyses(res.data.recentAnalyses || [])
     } catch (error) {
       console.error('Failed to fetch history:', error)

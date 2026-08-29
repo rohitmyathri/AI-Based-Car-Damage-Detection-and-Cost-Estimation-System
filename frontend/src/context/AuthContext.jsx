@@ -5,9 +5,8 @@ const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
 
-// Set base URL from env variable
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
-axios.defaults.baseURL = API_BASE.replace('/api', '')
+// Use full API URL in production, relative path locally
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -24,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password })
+    const res = await axios.post(`${API_URL}/auth/login`, { email, password })
     localStorage.setItem('token', res.data.token)
     localStorage.setItem('user', JSON.stringify(res.data.user))
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const signup = async (data) => {
-    const res = await axios.post('/api/auth/signup', data)
+    const res = await axios.post(`${API_URL}/auth/signup`, data)
     localStorage.setItem('token', res.data.token)
     localStorage.setItem('user', JSON.stringify(res.data.user))
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
