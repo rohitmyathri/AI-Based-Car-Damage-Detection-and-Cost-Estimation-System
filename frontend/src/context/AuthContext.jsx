@@ -6,7 +6,7 @@ const AuthContext = createContext()
 export const useAuth = () => useContext(AuthContext)
 
 // Use full API URL in production, relative path locally
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+const API_URL = import.meta.env.VITE_API_URL || 'https://ai-based-car-damage-detection-and-cost.onrender.com/api'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
