@@ -20,4 +20,4 @@ services:
       - key: EMAIL_PASSWORD
         sync: false
       - key: FRONTEND_URL
-        sync: false
+        value: https://car-damage-detection-and-repair-cost-estimation-nk11i2ot4.vercel.app
