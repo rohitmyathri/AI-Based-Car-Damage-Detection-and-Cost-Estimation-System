@@ -1,47 +1,71 @@
-# 🚗 Vehicle Damage Detection System
+# 🚗 AI-Based Car Damage Detection and Cost Estimation System
 
-Web application for vehicle damage detection and cost estimation with cyber-themed UI.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-brightgreen?style=for-the-badge)](https://ai-based-car-damage-detection-and-c.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge)](https://github.com/rohitmyathri/AI-Based-Car-Damage-Detection-and-Cost-Estimation-System)
 
-## 🚀 Quick Start
+## 🌐 Live Demo
+👉 **[https://ai-based-car-damage-detection-and-c.vercel.app](https://ai-based-car-damage-detection-and-c.vercel.app)**
 
-### 1. Install Dependencies
+> ⚠️ Note: First load may take 30-50 seconds (free hosting cold start)
+
+---
+
+## 📌 About
+An AI-powered web application that detects vehicle damage from images using YOLOv8 and estimates repair costs based on damage type, severity, and vehicle category.
+
+---
+
+## ✨ Features
+- 🔐 User authentication (signup/login/forgot password with OTP)
+- 📸 Upload car damage images
+- 🤖 AI-powered damage detection using trained YOLOv8 model
+- 🏷️ Detects 6 damage types: **dent, scratch, crack, glass shatter, lamp broken, tire flat**
+- 📊 Confidence scores and severity assessment (Minor/Moderate/Severe)
+- 💰 Repair cost estimation in ₹ (Indian Rupees)
+- 📈 Dashboard with analytics and charts
+- 📄 PDF report generation with bounding boxes
+- 🔄 Batch analysis (up to 10 images)
+- ⚖️ Compare two damage images side by side
+- 📱 Responsive UI
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite, TailwindCSS, Framer Motion, Recharts |
+| Backend | Node.js, Express, MongoDB, JWT, Multer, PDFKit |
+| ML Model | Python, YOLOv8, PyTorch, Ultralytics |
+| Database | MongoDB Atlas |
+| Deployment | Vercel (Frontend) + Render (Backend) |
+
+---
+
+## 🚀 Quick Start (Local)
+
+### 1. Clone the repo
 ```bash
-# Install Node.js dependencies
+git clone https://github.com/rohitmyathri/AI-Based-Car-Damage-Detection-and-Cost-Estimation-System.git
+cd AI-Based-Car-Damage-Detection-and-Cost-Estimation-System
+```
+
+### 2. Install dependencies
+```bash
 npm run install-all
 ```
 
-### 2. Setup ML Service (Required for Damage Detection)
-
-**Windows:**
-```bash
-setup_ml.bat
-```
-
-**Linux/Mac:**
-```bash
-cd backend/ml_service
-pip install -r requirements.txt
-python test_repackaged_model.py
-```
-
-**Verify Model:**
-```bash
-cd backend/ml_service
-python test_repackaged_model.py
-```
-
-Expected output: Model loaded with 6 damage classes (dent, scratch, crack, glass shatter, lamp broken, tire flat)
-
-See [SETUP_ML.md](SETUP_ML.md) for detailed instructions.
-
-### 3. Setup Environment Files
+### 3. Setup environment files
 
 **backend/.env:**
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/ai-damage-detection
-JWT_SECRET=your_secret_key_here
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_secret_key
 NODE_ENV=development
+EMAIL_USER=your_gmail
+EMAIL_PASSWORD=your_gmail_app_password
+FRONTEND_URL=http://localhost:5173
 ```
 
 **frontend/.env:**
@@ -49,88 +73,34 @@ NODE_ENV=development
 VITE_API_URL=http://localhost:5000/api
 ```
 
-### 4. Start Services
-
-**Terminal 1 - Backend:**
+### 4. Install ML dependencies
 ```bash
-cd backend
+cd backend/ml_service
+pip install -r requirements.txt
+```
+
+### 5. Start the app
+```bash
 npm run dev
 ```
 
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
-npm run dev
-```
+Open: **http://localhost:5173**
 
-### 5. Access Application
-Open browser: **http://localhost:5173**
+---
 
 ## 📁 Project Structure
-
 ```
-ai-damage-detection/
 ├── frontend/          # React + Vite + TailwindCSS
 ├── backend/           # Node.js + Express + MongoDB
-│   └── ml_service/    # Python ML service for YOLOv8
-├── Model/             # Trained YOLOv8 model
+│   ├── ml_service/    # Python YOLOv8 ML service
+│   ├── routes/        # API routes
+│   ├── models/        # MongoDB models
+│   └── utils/         # Cost calculator, email service
+├── Model/             # Trained YOLOv8 model (best_model.pt)
 └── README.md
 ```
 
-## 🛠️ Tech Stack
-
-**Frontend:** React 18, Vite, TailwindCSS, Framer Motion, Recharts  
-**Backend:** Node.js, Express, MongoDB, JWT, Multer, PDFKit  
-**ML Service:** Python, YOLOv8, PyTorch, Ultralytics
-
-## ✨ Features
-
-- User authentication (signup/login)
-- Image upload with drag & drop
-- **AI-powered damage detection using trained YOLOv8 model**
-- **Detects 6 damage types:** dent, scratch, crack, glass shatter, lamp broken, tire flat
-- **Real-time damage classification with confidence scores**
-- **Automatic severity assessment (Minor/Moderate/Severe)**
-- Cost estimation based on damage and vehicle category
-- Dashboard with analytics
-- PDF report generation with bounding boxes
-- Cyber-themed responsive UI
-
-## 🔧 Prerequisites
-
-- Node.js v18+
-- Python 3.8+ (for ML service)
-- MongoDB (or MongoDB Atlas)
-
-## 📝 Usage
-
-1. Sign up and create account
-2. Upload car damage image
-3. Select vehicle details (optional)
-4. Click "Analyze Damage"
-5. View report with cost estimate
-6. Download PDF report
-
-## 🐛 Troubleshooting
-
-**ML Service not working?**  
-- Ensure Python 3.8+ is installed
-- Run: `pip install -r backend/ml_service/requirements.txt`
-- Test model: `python backend/ml_service/test_repackaged_model.py`
-- Verify `Model/best_model.pt` exists (~50 MB)
-- See [SETUP_ML.md](SETUP_ML.md) for details
-
-**No damage detected?**
-- Image must contain one of 6 trained damage types
-- Ensure good lighting and clear focus
-- Damage should be clearly visible
-
-**MongoDB not connecting?**  
-Use MongoDB Atlas (free cloud): https://www.mongodb.com/cloud/atlas
-
-**Port already in use?**  
-Change PORT in backend/.env
+---
 
 ## 📄 License
-
 MIT License
