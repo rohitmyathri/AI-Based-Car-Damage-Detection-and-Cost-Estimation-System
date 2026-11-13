@@ -102,5 +102,19 @@ Open: **http://localhost:5173**
 
 ---
 
+## 👨‍💻 Author
+
+**M Rohit**
+
+🎓 B.Tech – Computer Science and Business System
+
+📧 Email: 23211a3230@bvrit.ac.in
+
+🔗 GitHub: [https://github.com/rohitmyathri](https://github.com/rohitmyathri)
+
+💼 LinkedIn: [https://www.linkedin.com/in/m-rohit-3b7160293/](https://www.linkedin.com/in/m-rohit-3b7160293/)
+
+---
+
 ## 📄 License
 MIT License
